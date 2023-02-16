@@ -20,14 +20,21 @@ export default function PrimaryLayout() {
 
 
     const skip = 0
-    const limit = 50
+    const limit = 9
 
     const [search, set_search] = useState("")
+    const [promotion_list, set_promotion_list] = useState([])
+
 
     const promotions = useQuery(
         ["promotions", skip, limit, search],
-        () => fetch_promotions(skip, limit, search),
+        () => fetch_promotions(skip, limit, search),{
+            onSuccess: (data)=> {
+                set_promotion_list(data?.data?.data)
+            }
+        }
     );
+
 
     function calculate_date_different(promotion_created_date: Date) {
         const created_date = new Date(promotion_created_date);
@@ -58,7 +65,7 @@ export default function PrimaryLayout() {
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
-                                        <div className="flex-shrink-0">
+                                        <div className="flex flex-shrink-0">
                                             <picture>
                                                 <img
                                                     className="h-12 w-12 opacity-80"
@@ -124,10 +131,9 @@ export default function PrimaryLayout() {
                                     </select>
                                 </div>
                             </div>
-
-
+                            <div className="border-t border-gray-400 mt-5 mb-9"/>
                             <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
-                                {promotions?.data?.data?.data.map((promotion: any, index: number) =>
+                                {promotion_list.length > 0 ? promotion_list.map((promotion: any, index: number) =>
                                 (
                                     <Link rel="noopener noreferrer" target="_blank" href={promotion.link} key={index} className="bg-white border border-gray-300 overflow-hidden  rounded-md">
                                         <div className="px-4 py-5 sm:p-6 rounded-">
@@ -162,11 +168,11 @@ export default function PrimaryLayout() {
                                             </div>)}
                                         </div>
                                     </Link>
-                                ))}
+                                )) : promotion_list.length === 0 ? "No Result" : "Loading"}
                             </div>
-                                    
+
                             <nav
-                                className="py-3 relative flex items-center justify-between border-t border-gray-300 mt-10"
+                                className="py-3 relative flex items-center justify-between border-t border-gray-400 mt-9"
                                 aria-label="Pagination"
                             >
                                 <div className="hidden sm:block">
@@ -180,13 +186,13 @@ export default function PrimaryLayout() {
                                         href="#"
                                         className="relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                                     >
-                                        <FcLeft className="h-5 w-5 mr-2"/> Back
+                                        <FcLeft className="h-5 w-5 mr-2" /> Back
                                     </a>
                                     <a
                                         href="#"
                                         className="ml-3 relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                                     >
-                                        Next <FcRight className="ml-2 h-5 w-5"/>
+                                        Next <FcRight className="ml-2 h-5 w-5" />
                                     </a>
                                 </div>
                             </nav>
