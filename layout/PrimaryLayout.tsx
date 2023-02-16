@@ -168,7 +168,7 @@ export default function PrimaryLayout() {
                                             </div>)}
                                         </div>
                                     </Link>
-                                )) : promotion_list.length === 0 ? "No Result" : "Loading"}
+                                )) : "No Result"}
                             </div>
 
                             <nav
