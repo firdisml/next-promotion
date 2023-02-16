@@ -61,8 +61,8 @@ export default function PrimaryLayout() {
                                         <div className="flex-shrink-0">
                                             <picture>
                                                 <img
-                                                    className="h-8 w-8"
-                                                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
+                                                    className="h-12 w-12"
+                                                    src="logo.svg"
                                                     alt="Workflow"
                                                 />
                                             </picture>
