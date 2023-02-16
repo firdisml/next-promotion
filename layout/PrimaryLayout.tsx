@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useQuery } from "react-query";
@@ -18,13 +18,15 @@ const fetch_promotions = async (skip: number, limit: number, search: string) => 
 
 export default function PrimaryLayout() {
 
+
     const skip = 0
     const limit = 50
-    const search = "starbuck"
+
+    const [search, set_search] = useState("")
 
     const promotions = useQuery(
         ["promotions", skip, limit, search],
-        () => fetch_promotions(skip, limit, search)
+        () => fetch_promotions(skip, limit, search),
     );
 
     function calculate_date_different(promotion_created_date: Date) {
@@ -111,21 +113,16 @@ export default function PrimaryLayout() {
                     )}
                 </Disclosure>
                 <main>
-                    <div className="max-w-7xl mx-auto pt-1 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto pt-4 sm:px-6 lg:px-8">
                         <div className="px-4 py-4 sm:px-0">
                             <div className="relative mt-1 rounded-md">
-                                <input type="text" name="price" id="price" className="h-10 block h-12 w-full rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search Promotions" />
+                                <input type="text" name="price" id="price" onChange={(event) => set_search(event.currentTarget.value)} className="h-10 block h-12 w-full rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search Promotions" />
                                 <div className="absolute inset-y-0 right-0 flex items-center">
                                     <select id="currency" name="currency" className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         <option>Store</option>
                                         <option>State</option>
                                     </select>
                                 </div>
-                            </div>
-
-
-                            <div className="flex mx-auto mt-6">
-                                                <h1 className="mx-auto text-xl font-semibold">- Latest Promotions -</h1>
                             </div>
 
 
@@ -167,9 +164,9 @@ export default function PrimaryLayout() {
                                     </Link>
                                 ))}
                             </div>
-
+                                    
                             <nav
-                                className="bg-white py-3 flex items-center justify-between border-t border-gray-200 mt-8"
+                                className="py-3 relative flex items-center justify-between border-t border-gray-300 mt-10"
                                 aria-label="Pagination"
                             >
                                 <div className="hidden sm:block">
