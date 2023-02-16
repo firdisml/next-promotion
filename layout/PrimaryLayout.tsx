@@ -61,7 +61,7 @@ export default function PrimaryLayout() {
                                         <div className="flex-shrink-0">
                                             <picture>
                                                 <img
-                                                    className="h-12 w-12"
+                                                    className="h-12 w-12 opacity-80"
                                                     src="logo.svg"
                                                     alt="Workflow"
                                                 />
