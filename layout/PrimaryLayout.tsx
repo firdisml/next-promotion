@@ -7,7 +7,7 @@ import axios from "axios";
 import pascalcase from 'pascalcase';
 import { CiLocationOn, CiHeart, CiCalendar } from "react-icons/ci";
 import { DateTime } from 'luxon'
-import { FcRight, FcLeft } from "react-icons/fc";
+import { FcRight, FcLeft, FcLike, FcGlobe, FcPlanner } from "react-icons/fc";
 import Link from "next/link";
 
 const fetch_promotions = async (skip: number, limit: number, search: string) => {
@@ -28,11 +28,11 @@ export default function PrimaryLayout() {
 
     const promotions = useQuery(
         ["promotions", skip, limit, search],
-        () => fetch_promotions(skip, limit, search),{
-            onSuccess: (data)=> {
-                set_promotion_list(data?.data?.data)
-            }
+        () => fetch_promotions(skip, limit, search), {
+        onSuccess: (data) => {
+            set_promotion_list(data?.data?.data)
         }
+    }
     );
 
 
@@ -55,6 +55,7 @@ export default function PrimaryLayout() {
 
         return days_difference;
     }
+
 
     return (
         <>
@@ -80,9 +81,9 @@ export default function PrimaryLayout() {
                                     <div className="hidden md:block">
                                         <div className="ml-10 flex items-baseline space-x-4">
                                             <button
-                                                className="text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                                                className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                                             >
-                                                ❤️ Submit Promotion
+                                                <FcLike className="h-5 w-5 mr-2" /> Submit Promotion
                                             </button>
                                         </div>
                                     </div>
@@ -108,10 +109,10 @@ export default function PrimaryLayout() {
 
                                     <Disclosure.Button
                                         as="a"
-                                        className="text-white bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
+                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
                                         aria-current="page"
                                     >
-                                        ❤️ Submit Promotion
+                                        <FcLike className="h-5 w-5 mr-2" /> Submit Promotion
                                     </Disclosure.Button>
 
                                 </div>
@@ -131,9 +132,9 @@ export default function PrimaryLayout() {
                                     </select>
                                 </div>
                             </div>
-                            <div className="border-t border-gray-400 mt-5 mb-9"/>
+                            <div className="border-t border-gray-400 mt-5 mb-9" />
                             <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
-                                {promotion_list.length > 0 ? promotion_list.map((promotion: any, index: number) =>
+                                {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
                                 (
                                     <Link rel="noopener noreferrer" target="_blank" href={promotion.link} key={index} className="bg-white border border-gray-300 overflow-hidden  rounded-md">
                                         <div className="px-4 py-5 sm:p-6 rounded-">
@@ -141,15 +142,15 @@ export default function PrimaryLayout() {
                                             <p className="text-md font-medium text-gray-500 mt-1">{pascalcase(promotion.shop)}</p>
                                             <div className="flex flex-col mt-2 gap-y-2">
                                                 <div className="flex text-gray-500">
-                                                    <span><CiLocationOn className="h-5 w-5 mr-2" /></span>
+                                                    <span><FcGlobe className="h-5 w-5 mr-2" /></span>
                                                     <p className="text-sm">{pascalcase(promotion.state)}</p>
                                                 </div>
                                                 <div className="flex text-gray-500">
-                                                    <span><CiHeart className="h-5 w-5 mr-2" /></span>
+                                                    <span><FcLike className="h-5 w-5 mr-2" /></span>
                                                     <p className="text-sm">{pascalcase(promotion.category)}</p>
                                                 </div>
                                                 <div className="flex text-gray-500">
-                                                    <span><CiCalendar className="h-5 w-5 mr-2" /></span>
+                                                    <span><FcPlanner className="h-5 w-5 mr-2" /></span>
                                                     <p className="text-sm">Added @ {(DateTime.fromISO(promotion.created).toLocaleString(DateTime.DATE_FULL))}</p>
                                                 </div>
                                             </div>
@@ -168,7 +169,7 @@ export default function PrimaryLayout() {
                                             </div>)}
                                         </div>
                                     </Link>
-                                )) : "No Result"}
+                                )) : (<h1 className="mx-auto col-span-3 text-md">No Result Found 💔</h1>)}
                             </div>
 
                             <nav
@@ -177,11 +178,11 @@ export default function PrimaryLayout() {
                             >
                                 <div className="hidden sm:block">
                                     <p className="text-sm text-gray-700">
-                                        Showing <span className="font-medium">1</span> to <span className="font-medium">10</span> of{' '}
+                                        Showing <span className="font-medium">1</span> to <span className="font-medium">9</span> of{' '}
                                         <span className="font-medium">20</span> results
                                     </p>
                                 </div>
-                                <div className="flex-1 flex justify-between sm:justify-end">
+                                {promotion_list.length >= 9 ? (<div className="flex-1 flex justify-between sm:justify-end">
                                     <a
                                         href="#"
                                         className="relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
@@ -194,7 +195,7 @@ export default function PrimaryLayout() {
                                     >
                                         Next <FcRight className="ml-2 h-5 w-5" />
                                     </a>
-                                </div>
+                                </div>) : null}
                             </nav>
                         </div>
                     </div>
