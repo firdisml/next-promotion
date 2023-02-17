@@ -3,11 +3,12 @@ import PrimaryLayout from 'layout/PrimaryLayout'
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
-
-
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 function Index() {
 
+    const router = useRouter()
     const MyContainer = ({ className, children }: any) => {
         return (
 
@@ -58,6 +59,19 @@ function Index() {
                     'Content-Type': 'multipart/form-data'
                 }
             })
+
+            toast('🦄 Wow so easy!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+
+                router.push('/')
             
         } catch (error) {
             console.log(error)
