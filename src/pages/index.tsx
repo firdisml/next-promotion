@@ -36,8 +36,6 @@ export default function Home(props: any) {
   }
   );
 
-  console.log(router)
-
 
   function calculate_date_different(promotion_created_date: Date) {
     const created_date = new Date(promotion_created_date);
@@ -109,21 +107,21 @@ export default function Home(props: any) {
                         rel="noopener noreferrer"
                         target="_blank"
                         href={`https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}`}
-                        className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       >
                         View Image
                       </Link>
                     </div>
 
-                    {calculate_date_different(promotion.created) <= 3 ? (<div className="mt-4">
+                    {calculate_date_different(promotion.created) <= 3 ? (<div className="mt-5">
                       <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
                         NEWLY ADDED
                       </span>
-                    </div>) : calculate_end_date(promotion.end) >= 0 ? (<div className="mt-4">
+                    </div>) : calculate_end_date(promotion.end) >= 0 ? (<div className="mt-5">
                       <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
                         ENDED
                       </span>
-                    </div>) : (<div className="mt-4">
+                    </div>) : (<div className="mt-5">
                       <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
                         ACTIVE
                       </span>
