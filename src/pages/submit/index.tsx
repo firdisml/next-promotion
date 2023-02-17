@@ -103,7 +103,7 @@ function Index() {
                                 }}
                                 minDate={new Date()}
                                 calendarContainer={MyContainer}
-                                autoComplete='off'
+                                autoComplete='nope'
                                 withPortal
                             />
                         </div>
