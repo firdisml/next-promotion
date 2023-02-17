@@ -4,10 +4,11 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import pascalcase from 'pascalcase';;
 import { DateTime } from 'luxon'
-import { FcRight, FcLeft, FcLike, FcGlobe, FcPlanner } from "react-icons/fc";
+import { FcRight, FcLeft, FcLike, FcGlobe, FcPlanner, FcRating } from "react-icons/fc";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
+import Head from 'next/head'
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(`https://go-mongo-promotion-production.up.railway.app/api/promotions/query?skip=${skip}&limit=9&search=${search}`);
@@ -35,7 +36,7 @@ export default function Home(props: any) {
   }
   );
 
-  console.log(props.page)
+  console.log(router)
 
 
   function calculate_date_different(promotion_created_date: Date) {
@@ -60,9 +61,12 @@ export default function Home(props: any) {
 
   return (
     <>
+      <Head>
+        <title>{search === "" ? "Sasa | Promotion Tracker" : `Search : ${search}`}</title>
+      </Head>
       <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
-          <div className="relative mt-1 rounded-md">
+          <div className="relative rounded-md">
             <input type="text" name="price" id="price" onChange={(event) => {
               set_search(event.currentTarget.value)
               router.push(`?page=1`)
@@ -75,7 +79,7 @@ export default function Home(props: any) {
             </div>
           </div>
           <div className="border-t border-gray-300 mt-4 mb-4" />
-          {search === "" ? <h1 className="font-semibold text-lg pb-1">Newest Promotions</h1> : null}
+          {search === "" ? (<div className="flex"><FcRating className="h-7 w-7 mr-3"/><h1 className="font-semibold text-lg pb-1">Newest Promotions</h1></div>) : null}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
             (

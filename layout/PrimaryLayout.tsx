@@ -1,11 +1,12 @@
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { FcLike } from "react-icons/fc";
+import { useRouter } from "next/router";
 
 
 
 export default function PrimaryLayout(props: any) {
-
+    const router = useRouter()
     return (
         <>
             <div className="min-h-full">
@@ -29,11 +30,19 @@ export default function PrimaryLayout(props: any) {
 
                                     <div className="hidden md:block">
                                         <div className="ml-10 flex items-baseline space-x-4">
-                                            <button
+
+                                            {router.route.includes("/submit") ? (<button
+                                                onClick={() => { router.push('/') }}
+                                                className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                                            >
+                                                <FcLike className="h-5 w-5 mr-2" /> Browser Promotion
+                                            </button>) : (<button
+                                                onClick={() => { router.push('/submit') }}
                                                 className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                                             >
                                                 <FcLike className="h-5 w-5 mr-2" /> Submit Promotion
-                                            </button>
+                                            </button>)}
+
                                         </div>
                                     </div>
                                     <div className="-mr-2 flex md:hidden">
@@ -55,14 +64,22 @@ export default function PrimaryLayout(props: any) {
 
                             <Disclosure.Panel className="md:hidden">
                                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-
-                                    <Disclosure.Button
+                                    {router.route.includes("/submit") ? (<Disclosure.Button
+                                        onClick={() => { router.push('/') }}
+                                        as="a"
+                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
+                                        aria-current="page"
+                                    >
+                                        <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
+                                    </Disclosure.Button>) : (<Disclosure.Button
+                                        onClick={() => { router.push('/submit') }}
                                         as="a"
                                         className="flex text-white bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
                                         aria-current="page"
                                     >
                                         <FcLike className="h-5 w-5 mr-2" /> Submit Promotion
-                                    </Disclosure.Button>
+                                    </Disclosure.Button>)}
+
 
                                 </div>
                             </Disclosure.Panel>
