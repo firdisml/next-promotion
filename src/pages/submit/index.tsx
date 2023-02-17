@@ -103,9 +103,6 @@ function Index() {
                                 }}
                                 minDate={new Date()}
                                 calendarContainer={MyContainer}
-                                onKeyDown={(e) => {
-                                    e.preventDefault();
-                                  }}
                                 autoComplete='off'
                                 withPortal
                             />
