@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function Index() {
 
-    const MyContainer = ({ className, children }) => {
+    const MyContainer = ({ className, children }: any) => {
         return (
 
             <CalendarContainer className={className}>
@@ -98,7 +98,7 @@ function Index() {
                                 startDate={startDate}
                                 className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 endDate={endDate}
-                                onChange={(update) => {
+                                onChange={(update:any) => {
                                     setDateRange(update);
                                 }}
                                 autoComplete="false"
