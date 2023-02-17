@@ -145,14 +145,14 @@ export default function Home(props: any) {
               <button
                 onClick={() => router.push(`?page=${props.page - 1}`)}
                 disabled={props.page <= 1}
-                className="relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="relative inline-flex font-semibold disabled:hidden items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <FcLeft className="h-5 w-5 mr-2" /> Back
               </button>
               <button
                 onClick={() => router.push(`?page=${props.page + 1}`)}
                 disabled={props.page >= limit}
-                className="ml-3 relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="ml-3 relative inline-flex disabled:hidden font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 Next <FcRight className="ml-2 h-5 w-5" />
               </button>
