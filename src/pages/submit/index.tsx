@@ -9,7 +9,7 @@ function Index() {
         return (
 
             <CalendarContainer className={className}>
-              <div style={{ background: "#f0f0f0", padding: "0.5rem" }} className="font-mono">
+              <div style={{ background: "#f0f0f0", padding: "0.5rem" }} className="rounded-md font-mono">
               </div>
               <div className='font-mono' style={{ position: "relative", paddingTop: "-10rem" }}>{children}</div>
             </CalendarContainer>
@@ -101,8 +101,12 @@ function Index() {
                                 onChange={(update:any) => {
                                     setDateRange(update);
                                 }}
-                                autoComplete="false"
+                                minDate={new Date()}
                                 calendarContainer={MyContainer}
+                                onKeyDown={(e) => {
+                                    e.preventDefault();
+                                  }}
+                                autoComplete='off'
                                 withPortal
                             />
                         </div>
