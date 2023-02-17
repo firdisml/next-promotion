@@ -6,30 +6,36 @@ import pascalcase from 'pascalcase';;
 import { DateTime } from 'luxon'
 import { FcRight, FcLeft, FcLike, FcGlobe, FcPlanner } from "react-icons/fc";
 import Link from "next/link";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 
-const fetch_promotions = async (skip: number, limit: number, search: string) => {
-  const fetch_transactions_count = await axios.get(`https://go-mongo-promotion-production.up.railway.app/api/promotions/query?skip=${skip}&limit=${limit}&search=${search}`);
+const fetch_promotions = async (skip: number, search: string) => {
+  const fetch_transactions_count = await axios.get(`https://go-mongo-promotion-production.up.railway.app/api/promotions/query?skip=${skip}&limit=9&search=${search}`);
 
   return fetch_transactions_count.data;
 };
 
-export default function Home() {
+export default function Home(props: any) {
 
-  const skip = 0
-  const limit = 9
-
+  const router = useRouter()
   const [search, set_search] = useState("")
   const [promotion_list, set_promotion_list] = useState([])
+  const [promotion_count, set_promotion_count] = useState(0)
 
+  const skip = props.page === 1 ? 0 : (props.page - 1) * 9;
+  const limit = Math.ceil(promotion_count / 9);
 
   useQuery(
-    ["promotions", skip, limit, search],
-    () => fetch_promotions(skip, limit, search), {
+    ["promotions", skip, search],
+    () => fetch_promotions(skip, search), {
     onSuccess: (data) => {
+      set_promotion_count(data?.data?.count)
       set_promotion_list(data?.data?.data)
     }
   }
   );
+
+  console.log(props.page)
 
 
   function calculate_date_different(promotion_created_date: Date) {
@@ -57,7 +63,10 @@ export default function Home() {
       <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
           <div className="relative mt-1 rounded-md">
-            <input type="text" name="price" id="price" onChange={(event) => set_search(event.currentTarget.value)} className="h-10 block h-12 w-full rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search Promotions" />
+            <input type="text" name="price" id="price" onChange={(event) => {
+              set_search(event.currentTarget.value)
+              router.push(`?page=1`)
+            }} className="h-10 block h-12 w-full rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search Promotions" />
             <div className="absolute inset-y-0 right-0 flex items-center">
               <select id="currency" name="currency" className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option>Store</option>
@@ -128,28 +137,35 @@ export default function Home() {
           >
             <div className="hidden sm:block">
               <p className="text-sm text-gray-700">
-                Showing <span className="font-medium">1</span> to <span className="font-medium">9</span> of{' '}
-                <span className="font-medium">20</span> results
+                Showing <span className="font-medium">1</span> to <span className="font-medium">{promotion_list.length}</span> of{' '}
+                <span className="font-medium">{promotion_count}</span> results
               </p>
             </div>
-            {promotion_list.length >= 9 ? (<div className="flex-1 flex justify-between sm:justify-end">
-              <a
-                href="#"
+            <div className="flex-1 flex justify-between sm:justify-end">
+              <button
+                onClick={() => router.push(`?page=${props.page - 1}`)}
+                disabled={props.page <= 1}
                 className="relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <FcLeft className="h-5 w-5 mr-2" /> Back
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
+                onClick={() => router.push(`?page=${props.page + 1}`)}
+                disabled={props.page >= limit}
                 className="ml-3 relative inline-flex font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 Next <FcRight className="ml-2 h-5 w-5" />
-              </a>
-            </div>) : null}
+              </button>
+            </div>
           </nav>
         </div>
       </PrimaryLayout>
     </>
   )
 }
-
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const { query: { page = 1 } } = ctx;
+  return { props: { page: +page } };
+}
