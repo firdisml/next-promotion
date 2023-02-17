@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PrimaryLayout from 'layout/PrimaryLayout'
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import ReCAPTCHA from "react-google-recaptcha";
 
 function Index() {
 
@@ -19,6 +20,7 @@ function Index() {
             </CalendarContainer>
         );
     };
+    const [loading, set_loading] = useState(false)
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
     const [title, set_title] = useState("")
@@ -28,6 +30,8 @@ function Index() {
     const [shop, set_shop] = useState("")
     const [image, setImage] = useState(null);
     const [createObjectURL, setCreateObjectURL] = useState<any>(null);
+    let toast_id;
+    const reRef = useRef<any>();
 
     const uploadToClient = (event:any) => {
         if (event.target.files && event.target.files[0]) {
@@ -42,9 +46,13 @@ function Index() {
 
         e.preventDefault()
 
+        const token = await reRef.current?.executeAsync();
+        set_loading(true)
+        toast_id = toast.loading("Creating");
+
         try {
 
-            const submit = await axios.post("https://go-mongo-promotion-production.up.railway.app/api/promotions", 
+            await axios.post("https://go-mongo-promotion-production.up.railway.app/api/promotions", 
             {
                 title:title,
                 category: category,
@@ -53,25 +61,21 @@ function Index() {
                 shop: shop,
                 image: image,
                 state: state,
-                visible: false
+                visible: false,
+                GRecaptchaResponse: token
             },{
                 headers:{
                     'Content-Type': 'multipart/form-data'
                 }
             })
 
-            toast('🦄 Wow so easy!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                });
-
-                router.push('/')
+            toast.update(toast_id, {
+                render: "Promotion Submitted",
+                type: "success",
+                isLoading: false,
+                autoClose: 3000,
+            });
+            router.push('/')
             
         } catch (error) {
             console.log(error)
@@ -86,6 +90,7 @@ function Index() {
             <div className="px-4 py-4 sm:px-0">
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <form className="px-4 py-5 sm:p-6" onSubmit={handle_submit}>
+                        <ReCAPTCHA sitekey='6Lfds48kAAAAAEeYku0Py2NC-g65FbfMJBuRqCmr' size='invisible' ref={reRef} />
                         <div className="col-span-6">
                             <label
                                 htmlFor="title"
@@ -100,13 +105,14 @@ function Index() {
                                 id="title"
                                 onChange={(e) => (set_title(e.currentTarget.value))}
                                 required
+                                disabled={loading}
                                 placeholder="Promotion's Title"
                                 className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm"
                             />
                         </div>
                         <div className="col-span-6 mt-5">
                         <label htmlFor="country" className="block text-sm font-medium">Category</label>
-                            <select id="category" name="category" onChange={(e) => {set_category(e.currentTarget.value)}} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                            <select id="category" disabled={loading} name="category" onChange={(e) => {set_category(e.currentTarget.value)}} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 <option>Food</option>
                                 <option>Other</option>
                                 <option>Mexico</option>
@@ -122,6 +128,7 @@ function Index() {
                             <input
                                 type="text"
                                 name="link"
+                                disabled={loading}
                                 onChange={(e) => (set_link(e.currentTarget.value))}
                                 id="link"
                                 placeholder="Promotion's Link"
@@ -138,6 +145,7 @@ function Index() {
                             <input
                                 type="text"
                                 maxLength={30}
+                                disabled={loading}
                                 name="link"
                                 id="link"
                                 onChange={(e) => (set_shop(e.currentTarget.value))}
@@ -147,7 +155,7 @@ function Index() {
                         </div>
                         <div className="col-span-6 sm:col-span-3 mt-5">
                             <label htmlFor="country" className="block text-sm font-medium">State</label>
-                            <select id="state" name="state" onChange={(e) => (set_state(e.currentTarget.value))} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                            <select disabled={loading} id="state" name="state" onChange={(e) => (set_state(e.currentTarget.value))} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 <option>Selangor</option>
                                 <option>Kuala Lumpur</option>
                                 <option>Mexico</option>
@@ -180,7 +188,8 @@ function Index() {
                         <div className="col-span-6 sm:col-span-3 mt-5">
 
                             <button
-                                type="submit"
+                                type="submit"  
+                                disabled={loading}
                                 className="flex flex-col items-center w-full px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 Submit Promotion

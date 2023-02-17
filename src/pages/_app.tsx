@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastContainer />
+      <ToastContainer bodyClassName="font-mono"/>
       <Component {...pageProps} />
     </QueryClientProvider>
   )
