@@ -79,9 +79,9 @@ export default function Home(props: any) {
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
             (
-              <div key={index} className="bg-white border border-gray-300 overflow-hidden  rounded-md">
+              <div key={index} className="bg-white border border-gray-300 inline-block rounded-md">
                 <div className="px-4 py-5 sm:p-6 rounded-">
-                  <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate hover:opacity-70">{pascalcase(promotion.title).replace(/([A-Z])/g, ' $1')}</Link>
+                  <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{pascalcase(promotion.title).replace(/([A-Z])/g, ' $1')}</Link>
                   <p className="text-md font-medium text-gray-500 mt-1">{pascalcase(promotion.shop)}</p>
                   <div className="flex flex-col mt-2 gap-y-2">
                     <div className="flex text-gray-500">
@@ -137,7 +137,7 @@ export default function Home(props: any) {
           >
             <div className="hidden sm:block">
               <p className="text-sm text-gray-700">
-                Showing <span className="font-medium">1</span> to <span className="font-medium">{promotion_list.length}</span> of{' '}
+                Showing <span className="font-medium">{skip + 1}</span> to <span className="font-medium">{skip + promotion_list.length}</span> of{' '}
                 <span className="font-medium">{promotion_count}</span> results
               </p>
             </div>
@@ -145,14 +145,14 @@ export default function Home(props: any) {
               <button
                 onClick={() => router.push(`?page=${props.page - 1}`)}
                 disabled={props.page <= 1}
-                className="relative inline-flex font-semibold disabled:hidden items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="relative inline-flex font-semibold disabled:bg-gray-200 items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <FcLeft className="h-5 w-5 mr-2" /> Back
               </button>
               <button
                 onClick={() => router.push(`?page=${props.page + 1}`)}
                 disabled={props.page >= limit}
-                className="ml-3 relative inline-flex disabled:hidden font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="ml-3 relative inline-flex disabled:bg-gray-200 font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 Next <FcRight className="ml-2 h-5 w-5" />
               </button>
