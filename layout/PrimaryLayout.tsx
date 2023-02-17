@@ -1,11 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Disclosure } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useQuery } from "react-query";
 import axios from "axios";
-import pascalcase from 'pascalcase';
-import { CiLocationOn, CiHeart, CiCalendar } from "react-icons/ci";
+import pascalcase from 'pascalcase';;
 import { DateTime } from 'luxon'
 import { FcRight, FcLeft, FcLike, FcGlobe, FcPlanner } from "react-icons/fc";
 import Link from "next/link";
@@ -24,6 +23,7 @@ export default function PrimaryLayout() {
 
     const [search, set_search] = useState("")
     const [promotion_list, set_promotion_list] = useState([])
+    const [isOpen, setIsOpen] = useState(true)
 
 
     const promotions = useQuery(
@@ -132,13 +132,14 @@ export default function PrimaryLayout() {
                                     </select>
                                 </div>
                             </div>
-                            <div className="border-t border-gray-400 mt-5 mb-9" />
+                            <div className="border-t border-gray-300 mt-4 mb-4" />
+                            {search === "" ? <h1 className="font-semibold text-lg pb-1">Newest Promotions</h1> : null}
                             <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
                                 {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
                                 (
-                                    <Link rel="noopener noreferrer" target="_blank" href={promotion.link} key={index} className="bg-white border border-gray-300 overflow-hidden  rounded-md">
+                                    <div key={index} className="bg-white border border-gray-300 overflow-hidden  rounded-md">
                                         <div className="px-4 py-5 sm:p-6 rounded-">
-                                            <h1 className="text-md font-semibold truncate">{pascalcase(promotion.title).replace(/([A-Z])/g, ' $1')}</h1>
+                                            <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate hover:opacity-70">{pascalcase(promotion.title).replace(/([A-Z])/g, ' $1')}</Link>
                                             <p className="text-md font-medium text-gray-500 mt-1">{pascalcase(promotion.shop)}</p>
                                             <div className="flex flex-col mt-2 gap-y-2">
                                                 <div className="flex text-gray-500">
@@ -154,27 +155,43 @@ export default function PrimaryLayout() {
                                                     <p className="text-sm">Added @ {(DateTime.fromISO(promotion.created).toLocaleString(DateTime.DATE_FULL))}</p>
                                                 </div>
                                             </div>
-                                            {calculate_date_different(promotion.created) <= 3 ? (<div className="mt-4">
-                                                <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                                                    NEWLY ADDED
-                                                </span>
-                                            </div>) : calculate_end_date(promotion.end) >= 0 ? (<div className="mt-4">
-                                                <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
-                                                    ENDED
-                                                </span>
-                                            </div>) : (<div className="mt-4">
-                                                <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                                                    ACTIVE
-                                                </span>
-                                            </div>)}
+                                            <div className="flex gap-x-2">
+
+                                                <div className="mt-4">
+                                                    <Link
+                                                        type="button"
+                                                        rel="noopener noreferrer" 
+                                                        target="_blank"
+                                                        href={`https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}`}
+                                                        className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                    >
+                                                        View Image
+                                                    </Link>
+                                                </div>
+
+                                                {calculate_date_different(promotion.created) <= 3 ? (<div className="mt-4">
+                                                    <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                        NEWLY ADDED
+                                                    </span>
+                                                </div>) : calculate_end_date(promotion.end) >= 0 ? (<div className="mt-4">
+                                                    <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                        ENDED
+                                                    </span>
+                                                </div>) : (<div className="mt-4">
+                                                    <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                                        ACTIVE
+                                                    </span>
+                                                </div>)}
+
+                                            </div>
+
                                         </div>
-                                    </Link>
+                                    </div>
                                 )) : (<h1 className="mx-auto col-span-3 text-md">No Result Found 💔</h1>)}
                             </div>
 
                             <nav
-                                className="py-3 relative flex items-center justify-between border-t border-gray-400 mt-9"
-                                aria-label="Pagination"
+                                className="py-3 relative flex items-center justify-between border-t border-gray-300 mt-4"
                             >
                                 <div className="hidden sm:block">
                                     <p className="text-sm text-gray-700">
