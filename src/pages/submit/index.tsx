@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PrimaryLayout from 'layout/PrimaryLayout'
+import DatePicker, { CalendarContainer } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Index() {
+
+    const MyContainer = ({ className, children }) => {
+        return (
+
+            <CalendarContainer className={className}>
+              <div style={{ background: "#f0f0f0", padding: "0.5rem" }} className="font-mono">
+              </div>
+              <div className='font-mono' style={{ position: "relative", paddingTop: "-10rem" }}>{children}</div>
+            </CalendarContainer>
+        );
+      };
+    const [dateRange, setDateRange] = useState([null, null]);
+    const [startDate, endDate] = dateRange;
     return (
         <PrimaryLayout>
             <div className="px-4 py-4 sm:px-0">
@@ -74,6 +89,22 @@ function Index() {
                                 <option>Canada</option>
                                 <option>Mexico</option>
                             </select>
+                        </div>
+
+                        <div className="col-span-6 sm:col-span-3 mt-5">
+                        <label htmlFor="country" className="block text-sm font-medium">State</label>
+                            <DatePicker
+                                selectsRange={true}
+                                startDate={startDate}
+                                className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                endDate={endDate}
+                                onChange={(update) => {
+                                    setDateRange(update);
+                                }}
+                                autoComplete="false"
+                                calendarContainer={MyContainer}
+                                withPortal
+                            />
                         </div>
                     </div>
                 </div>
