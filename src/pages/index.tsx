@@ -9,6 +9,7 @@ import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import Head from 'next/head'
+import * as changeCase from "change-case";
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(`https://go-mongo-promotion-production.up.railway.app/api/promotions/query?skip=${skip}&limit=9&search=${search}`);
@@ -77,22 +78,25 @@ export default function Home(props: any) {
             </div>
           </div>
           <div className="border-t border-gray-300 mt-4 mb-4" />
-          {search === "" ? (<div className="flex"><FcCloseUpMode className="h-7 w-7 mr-3"/><h1 className="font-semibold text-lg pb-1">Newest Promotions</h1></div>) : null}
+          {search === "" ? (<div className="flex"><FcCloseUpMode className="h-7 w-7 mr-3" /><h1 className="font-semibold text-lg pb-1">Newest Promotions</h1></div>) : null}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
             (
               <div key={index} className="bg-white border border-gray-300 inline-block rounded-md">
                 <div className="px-4 py-5 sm:p-6 rounded-">
-                  <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{pascalcase(promotion.title).replace(/([A-Z])/g, ' $1')}</Link>
-                  <p className="text-sm font-medium text-gray-500 mt-1">{pascalcase(promotion.shop).replace(/([A-Z])/g, ' $1')}</p>
+                  <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{changeCase.capitalCase(promotion.title, {
+                    splitRegexp: /([a-z])([A-Z0-9])/g,
+                    stripRegexp: /[^A-Z0-9%]/gi,
+                  })}</Link>
+                  <p className="text-sm font-medium text-gray-500 mt-1">{changeCase.capitalCase(promotion.shop).replace("/[^A-Z\d\s]/gi", "%")}</p>
                   <div className="flex flex-col mt-2 gap-y-2">
                     <div className="flex text-gray-500">
                       <span><FcGlobe className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{pascalcase(promotion.state).replace(/([A-Z])/g, ' $1')}</p>
+                      <p className="text-sm">{changeCase.capitalCase(promotion.state).replace(/([A-Z])/g, ' $1')}</p>
                     </div>
                     <div className="flex text-gray-500">
                       <span><FcLike className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{pascalcase(promotion.category).replace(/([A-Z])/g, ' $1')}</p>
+                      <p className="text-sm">{changeCase.capitalCase(promotion.category).replace(/([A-Z])/g, ' $1')}</p>
                     </div>
                     <div className="flex text-gray-500">
                       <span><FcOk className="h-5 w-5 mr-2" /></span>
