@@ -54,15 +54,15 @@ function Index() {
 
             await axios.post("https://go-mongo-promotion-production.up.railway.app/api/promotions", 
             {
-                title:title,
-                category: category,
-                description: "Test",
-                link: link,
-                shop: shop,
-                image: image,
-                state: state,
-                visible: false,
-                GRecaptchaResponse: token
+                "title":title,
+                "category": category,
+                "description": "Test",
+                "link": link,
+                "shop": shop,
+                "image": image,
+                "state": state,
+                "visible": false,
+                "g-recaptcha-response": token
             },{
                 headers:{
                     'Content-Type': 'multipart/form-data'
