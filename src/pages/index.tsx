@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import pascalcase from 'pascalcase';;
 import { DateTime } from 'luxon'
-import { FcRight, FcLeft, FcLike, FcGlobe, FcPlanner, FcRating } from "react-icons/fc";
+import { FcRight, FcLeft, FcLike, FcGlobe, FcOk, FcCloseUpMode, FcCancel } from "react-icons/fc";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
@@ -77,7 +77,7 @@ export default function Home(props: any) {
             </div>
           </div>
           <div className="border-t border-gray-300 mt-4 mb-4" />
-          {search === "" ? (<div className="flex"><FcRating className="h-7 w-7 mr-3"/><h1 className="font-semibold text-lg pb-1">Newest Promotions</h1></div>) : null}
+          {search === "" ? (<div className="flex"><FcCloseUpMode className="h-7 w-7 mr-3"/><h1 className="font-semibold text-lg pb-1">Newest Promotions</h1></div>) : null}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
             (
@@ -95,11 +95,11 @@ export default function Home(props: any) {
                       <p className="text-sm">{pascalcase(promotion.category).replace(/([A-Z])/g, ' $1')}</p>
                     </div>
                     <div className="flex text-gray-500">
-                      <span><FcPlanner className="h-5 w-5 mr-2" /></span>
+                      <span><FcOk className="h-5 w-5 mr-2" /></span>
                       <p className="text-sm">Start @ {(DateTime.fromISO(promotion.start).toLocaleString(DateTime.DATE_FULL))}</p>
                     </div>
                     <div className="flex text-gray-500">
-                      <span><FcPlanner className="h-5 w-5 mr-2" /></span>
+                      <span><FcCancel className="h-5 w-5 mr-2" /></span>
                       <p className="text-sm">End @ {(DateTime.fromISO(promotion.end).toLocaleString(DateTime.DATE_FULL))}</p>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export default function Home(props: any) {
                       </Link>
                     </div>
 
-                    {calculate_date_different(promotion.created) <= 3 ? (<div className="mt-5">
+                    {calculate_date_different(promotion.created) <= 1 ? (<div className="mt-5">
                       <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
                         NEWLY ADDED
                       </span>

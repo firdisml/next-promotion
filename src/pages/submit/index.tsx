@@ -24,9 +24,9 @@ function Index() {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
     const [title, set_title] = useState("")
-    const [category, set_category] = useState("")
+    const [category, set_category] = useState("Food")
     const [link, set_link] = useState("")
-    const [state, set_state] = useState("")
+    const [state, set_state] = useState("Selangor")
     const [shop, set_shop] = useState("")
     const [image, setImage] = useState(null);
     const [createObjectURL, setCreateObjectURL] = useState<any>(null);
@@ -123,8 +123,8 @@ function Index() {
                             <label htmlFor="country" className="block text-sm font-medium">Category</label>
                             <select id="category" disabled={loading} name="category" onChange={(e) => { set_category(e.currentTarget.value) }} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 <option>Food</option>
+                                <option>Beverage</option>
                                 <option>Other</option>
-                                <option>Mexico</option>
                             </select>
                         </div>
                         <div className="col-span-6 mt-5">
@@ -167,7 +167,7 @@ function Index() {
                             <select disabled={loading} id="state" name="state" onChange={(e) => (set_state(e.currentTarget.value))} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 <option>Selangor</option>
                                 <option>Kuala Lumpur</option>
-                                <option>Mexico</option>
+                                <option>All States</option>
                             </select>
                         </div>
 
