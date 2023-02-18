@@ -122,8 +122,7 @@ function Index() {
                         <div className="col-span-6 mt-5">
                             <label htmlFor="country" className="block text-sm font-medium">Category</label>
                             <select id="category" disabled={loading} name="category" onChange={(e) => { set_category(e.currentTarget.value) }} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                <option>Food</option>
-                                <option>Beverage</option>
+                                <option>Food & Beverage</option>
                                 <option>Other</option>
                             </select>
                         </div>
