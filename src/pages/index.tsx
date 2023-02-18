@@ -84,19 +84,23 @@ export default function Home(props: any) {
               <div key={index} className="bg-white border border-gray-300 inline-block rounded-md">
                 <div className="px-4 py-5 sm:p-6 rounded-">
                   <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{pascalcase(promotion.title).replace(/([A-Z])/g, ' $1')}</Link>
-                  <p className="text-md font-medium text-gray-500 mt-1">{pascalcase(promotion.shop)}</p>
+                  <p className="text-sm font-medium text-gray-500 mt-1">{pascalcase(promotion.shop).replace(/([A-Z])/g, ' $1')}</p>
                   <div className="flex flex-col mt-2 gap-y-2">
                     <div className="flex text-gray-500">
                       <span><FcGlobe className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{pascalcase(promotion.state)}</p>
+                      <p className="text-sm">{pascalcase(promotion.state).replace(/([A-Z])/g, ' $1')}</p>
                     </div>
                     <div className="flex text-gray-500">
                       <span><FcLike className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{pascalcase(promotion.category)}</p>
+                      <p className="text-sm">{pascalcase(promotion.category).replace(/([A-Z])/g, ' $1')}</p>
                     </div>
                     <div className="flex text-gray-500">
                       <span><FcPlanner className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">Added @ {(DateTime.fromISO(promotion.created).toLocaleString(DateTime.DATE_FULL))}</p>
+                      <p className="text-sm">Start @ {(DateTime.fromISO(promotion.start).toLocaleString(DateTime.DATE_FULL))}</p>
+                    </div>
+                    <div className="flex text-gray-500">
+                      <span><FcPlanner className="h-5 w-5 mr-2" /></span>
+                      <p className="text-sm">End @ {(DateTime.fromISO(promotion.end).toLocaleString(DateTime.DATE_FULL))}</p>
                     </div>
                   </div>
                   <div className="flex gap-x-2">

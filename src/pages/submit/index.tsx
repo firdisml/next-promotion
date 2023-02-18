@@ -62,6 +62,8 @@ function Index() {
                 "image": image,
                 "state": state,
                 "visible": false,
+                "start": startDate,
+                "end": endDate,
                 "g-recaptcha-response": token
             },{
                 headers:{
