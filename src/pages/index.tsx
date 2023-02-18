@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import pascalcase from 'pascalcase';;
 import { DateTime } from 'luxon'
-import { FcRight, FcLeft, FcLike, FcGlobe, FcOk, FcCloseUpMode, FcCancel } from "react-icons/fc";
+import { FcRight, FcLeft, FcLike, FcGlobe, FcOk, FcCloseUpMode, FcCancel, FcIdea } from "react-icons/fc";
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
@@ -78,7 +78,7 @@ export default function Home(props: any) {
             </div>
           </div>
           <div className="border-t border-gray-300 mt-4 mb-4" />
-          {search === "" ? (<div className="flex"><FcCloseUpMode className="h-7 w-7 mr-3" /><h1 className="font-semibold text-lg pb-1">Newest Promotions</h1></div>) : null}
+          {search === "" ? (<div className="flex grid-cols-3"><h1 className="mx-auto font-semibold text-lg pb-1 flex"><FcIdea className="h-6 w-6 mr-3"/>Latest Promotions <FcIdea className="h-6 w-6 ml-3"/></h1></div>) : null}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
             (
