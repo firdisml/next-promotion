@@ -86,7 +86,7 @@ export default function Home(props: any) {
                 <div className="px-4 py-5 sm:p-6 rounded-">
                   <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{changeCase.capitalCase(promotion.title, {
                     splitRegexp: /([a-z])([A-Z0-9])/g,
-                    stripRegexp: /[^A-Z0-9%/]/gi,
+                    stripRegexp: /[^A-Z0-9%]/gi,
                   })}</Link>
                   <p className="text-sm font-medium text-gray-500 mt-1">{changeCase.capitalCase(promotion.shop).replace("/[^A-Z\d\s]/gi", "%")}</p>
                   <div className="flex flex-col mt-2 gap-y-2">
