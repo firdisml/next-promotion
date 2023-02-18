@@ -49,7 +49,7 @@ function Index() {
         const token = await reRef.current?.executeAsync();
         reRef.current.reset();
         set_loading(true)
-        toast_id = toast.loading("Creating");
+        toast_id = toast.loading("Submitting");
 
         try {
 
