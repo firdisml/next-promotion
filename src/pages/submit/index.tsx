@@ -180,7 +180,6 @@ function Index() {
                                 onChange={(update: any) => {
                                     setDateRange(update);
                                 }}
-                                minDate={new Date()}
                                 placeholderText="Promotion's Duration"
                                 calendarContainer={MyContainer}
                                 autoComplete='nope'
