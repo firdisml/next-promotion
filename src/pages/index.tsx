@@ -96,7 +96,10 @@ export default function Home(props: any) {
                     </div>
                     <div className="flex text-gray-500">
                       <span><FcLike className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{changeCase.capitalCase(promotion.category).replace(/([A-Z])/g, ' $1')}</p>
+                      <p className="text-sm">{changeCase.capitalCase(promotion.category, {
+                        splitRegexp: /([a-z])([A-Z0-9])/g,
+                        stripRegexp: /[^A-Z0-9&]/gi,
+                      })}</p>
                     </div>
                     <div className="flex text-gray-500">
                       <span><FcOk className="h-5 w-5 mr-2" /></span>

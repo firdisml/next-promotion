@@ -24,7 +24,7 @@ function Index() {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
     const [title, set_title] = useState("")
-    const [category, set_category] = useState("Food")
+    const [category, set_category] = useState("Food & Baverage")
     const [link, set_link] = useState("")
     const [state, set_state] = useState("Selangor")
     const [shop, set_shop] = useState("")
