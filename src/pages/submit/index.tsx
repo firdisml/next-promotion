@@ -33,54 +33,61 @@ function Index() {
     let toast_id;
     const reRef = useRef<any>();
 
-    const uploadToClient = (event:any) => {
+    const uploadToClient = (event: any) => {
         if (event.target.files && event.target.files[0]) {
-          const i:any = event.target.files[0];
-    
-          setImage(i);
-          setCreateObjectURL(URL.createObjectURL(i));
-        }
-      };
+            const i: any = event.target.files[0];
 
-    const handle_submit = async (e:any) => {
+            setImage(i);
+            setCreateObjectURL(URL.createObjectURL(i));
+        }
+    };
+
+    const handle_submit = async (e: any) => {
 
         e.preventDefault()
 
         const token = await reRef.current?.executeAsync();
+        reRef.current.reset();
         set_loading(true)
         toast_id = toast.loading("Creating");
 
         try {
 
-            await axios.post("https://go-mongo-promotion-production.up.railway.app/api/promotions", 
-            {
-                "title":title,
-                "category": category,
-                "description": "Test",
-                "link": link,
-                "shop": shop,
-                "image": image,
-                "state": state,
-                "visible": false,
-                "start": startDate,
-                "end": endDate,
-                "g-recaptcha-response": token
-            },{
-                headers:{
+            await axios.post("https://go-mongo-promotion-production.up.railway.app/api/promotions",
+                {
+                    "title": title,
+                    "category": category,
+                    "description": "Test",
+                    "link": link,
+                    "shop": shop,
+                    "image": image,
+                    "state": state,
+                    "visible": false,
+                    "start": startDate,
+                    "end": endDate,
+                    "g-recaptcha-response": token
+                }, {
+                headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
 
             toast.update(toast_id, {
-                render: "Promotion Submitted",
+                render: "Submission Success",
                 type: "success",
                 isLoading: false,
                 autoClose: 3000,
             });
             router.push('/')
-            
+
         } catch (error) {
-            console.log(error)
+            toast.update(toast_id, {
+                render: "Submission Error",
+                type: "error",
+                isLoading: false,
+                autoClose: 3000,
+            });
+            set_loading(false)
         }
 
 
@@ -113,8 +120,8 @@ function Index() {
                             />
                         </div>
                         <div className="col-span-6 mt-5">
-                        <label htmlFor="country" className="block text-sm font-medium">Category</label>
-                            <select id="category" disabled={loading} name="category" onChange={(e) => {set_category(e.currentTarget.value)}} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                            <label htmlFor="country" className="block text-sm font-medium">Category</label>
+                            <select id="category" disabled={loading} name="category" onChange={(e) => { set_category(e.currentTarget.value) }} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 <option>Food</option>
                                 <option>Other</option>
                                 <option>Mexico</option>
@@ -190,7 +197,7 @@ function Index() {
                         <div className="col-span-6 sm:col-span-3 mt-5">
 
                             <button
-                                type="submit"  
+                                type="submit"
                                 disabled={loading}
                                 className="flex flex-col items-center w-full px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
