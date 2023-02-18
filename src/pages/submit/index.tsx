@@ -184,12 +184,13 @@ function Index() {
                                 calendarContainer={MyContainer}
                                 autoComplete='nope'
                                 withPortal
+                                readOnly={loading}
                             />
                         </div>
 
                         <div className="col-span-6 sm:col-span-3 mt-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload Picture</label>
-                            <input accept="image/*" onChange={uploadToClient} required className="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+                            <input accept="image/*" disabled={loading} onChange={uploadToClient} required className="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
                         </div>
 
                         <div className="col-span-6 sm:col-span-3 mt-5">

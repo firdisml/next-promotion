@@ -2,6 +2,7 @@ import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { FcLike } from "react-icons/fc";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 
 
@@ -17,6 +18,7 @@ export default function PrimaryLayout(props: any) {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex flex-shrink-0">
+                                            <Link href={"/"}>
                                             <picture>
                                                 <img
                                                     className="h-12 w-12 opacity-80"
@@ -24,6 +26,7 @@ export default function PrimaryLayout(props: any) {
                                                     alt="Workflow"
                                                 />
                                             </picture>
+                                            </Link>
                                         </div>
 
                                     </div>
