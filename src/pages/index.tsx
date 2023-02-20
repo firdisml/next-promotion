@@ -10,6 +10,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import Head from 'next/head'
 import * as changeCase from "change-case";
+import Spinner from "components/spinner";
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(`https://go-mongo-promotion-production.up.railway.app/api/promotions/query?skip=${skip}&limit=9&search=${search}`);
@@ -27,7 +28,7 @@ export default function Home(props: any) {
   const skip = props.page === 1 ? 0 : (props.page - 1) * 9;
   const limit = Math.ceil(promotion_count / 9);
 
-  useQuery(
+  const { isLoading, isFetching, error } = useQuery(
     ["promotions", skip, search],
     () => fetch_promotions(skip, search), {
     onSuccess: (data) => {
@@ -78,71 +79,80 @@ export default function Home(props: any) {
             </div>
           </div>
           <div className="border-t border-gray-300 mt-4 mb-4" />
-          {search === "" ? (<div className="flex grid-cols-3"><h1 className="mx-auto font-semibold text-lg pb-1 flex"><FcIdea className="h-6 w-6 mr-3"/>Latest Promotions <FcIdea className="h-6 w-6 ml-3"/></h1></div>) : null}
+          {search === "" ? (<div className="flex grid-cols-3"><h1 className="mx-auto font-semibold text-lg pb-1 flex"><FcIdea className="h-6 w-6 mr-3" />Latest Promotions <FcIdea className="h-6 w-6 ml-3" /></h1></div>) : null}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
-            {promotion_list.length > 0 ? promotion_list?.map((promotion: any, index: number) =>
-            (
-              <div key={index} className="bg-white border border-gray-300 inline-block rounded-md">
-                <div className="px-4 py-5 sm:p-6 rounded-">
-                  <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{changeCase.capitalCase(promotion.title, {
-                    splitRegexp: /([a-z])([A-Z0-9])/g,
-                    stripRegexp: /[^A-Z0-9%]/gi,
-                  })}</Link>
-                  <p className="text-sm font-medium text-gray-500 mt-1">{changeCase.capitalCase(promotion.shop).replace("/[^A-Z\d\s]/gi", "%")}</p>
-                  <div className="flex flex-col mt-2 gap-y-2">
-                    <div className="flex text-gray-500">
-                      <span><FcGlobe className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{changeCase.capitalCase(promotion.state).replace(/([A-Z])/g, ' $1')}</p>
-                    </div>
-                    <div className="flex text-gray-500">
-                      <span><FcLike className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">{changeCase.capitalCase(promotion.category, {
-                        splitRegexp: /([a-z])([A-Z0-9])/g,
-                        stripRegexp: /[^A-Z0-9&]/gi,
-                      })}</p>
-                    </div>
-                    <div className="flex text-gray-500">
-                      <span><FcOk className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">Start @ {(DateTime.fromISO(promotion.start).toLocaleString(DateTime.DATE_FULL))}</p>
-                    </div>
-                    <div className="flex text-gray-500">
-                      <span><FcCancel className="h-5 w-5 mr-2" /></span>
-                      <p className="text-sm">End @ {(DateTime.fromISO(promotion.end).toLocaleString(DateTime.DATE_FULL))}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-x-2">
+            {
 
-                    <div className="mt-4">
-                      <Link
-                        type="button"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        href={`https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}`}
-                        className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        View Image
-                      </Link>
-                    </div>
+              isLoading ? (<div className="mx-auto col-span-3"><Spinner/></div>)
 
-                    {calculate_date_different(promotion.created) <= 1 ? (<div className="mt-5">
-                      <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                        NEWLY ADDED
-                      </span>
-                    </div>) : calculate_end_date(promotion.end) >= 0 ? (<div className="mt-5">
-                      <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
-                        ENDED
-                      </span>
-                    </div>) : (<div className="mt-5">
-                      <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                        ACTIVE
-                      </span>
-                    </div>)}
+                : isFetching ? (<div className="mx-auto col-span-3"><Spinner/></div>)
 
-                  </div>
+                  : promotion_list.length === 0 ? (<div className="mx-auto col-span-3">💔 No Result Found</div>)
 
-                </div>
-              </div>
-            )) : (<h1 className="mx-auto col-span-3 text-md">No Result Found 💔</h1>)}
+                    : promotion_list?.map((promotion: any, index: number) =>
+                    (
+                      <div key={index} className="bg-white border border-gray-300 inline-block rounded-md">
+                        <div className="px-4 py-5 sm:p-6 rounded-">
+                          <Link rel="noopener noreferrer" target="_blank" href={promotion.link} className="text-md font-semibold truncate block hover:opacity-70">{changeCase.capitalCase(promotion.title, {
+                            splitRegexp: /([a-z])([A-Z0-9])/g,
+                            stripRegexp: /[^A-Z0-9%]/gi,
+                          })}</Link>
+                          <p className="text-sm font-medium text-gray-500 mt-1">{changeCase.capitalCase(promotion.shop).replace("/[^A-Z\d\s]/gi", "%")}</p>
+                          <div className="flex flex-col mt-2 gap-y-2">
+                            <div className="flex text-gray-500">
+                              <span><FcGlobe className="h-5 w-5 mr-2" /></span>
+                              <p className="text-sm">{changeCase.capitalCase(promotion.state).replace(/([A-Z])/g, ' $1')}</p>
+                            </div>
+                            <div className="flex text-gray-500">
+                              <span><FcLike className="h-5 w-5 mr-2" /></span>
+                              <p className="text-sm">{changeCase.capitalCase(promotion.category, {
+                                splitRegexp: /([a-z])([A-Z0-9])/g,
+                                stripRegexp: /[^A-Z0-9&]/gi,
+                              })}</p>
+                            </div>
+                            <div className="flex text-gray-500">
+                              <span><FcOk className="h-5 w-5 mr-2" /></span>
+                              <p className="text-sm">Start @ {(DateTime.fromISO(promotion.start).toLocaleString(DateTime.DATE_FULL))}</p>
+                            </div>
+                            <div className="flex text-gray-500">
+                              <span><FcCancel className="h-5 w-5 mr-2" /></span>
+                              <p className="text-sm">End @ {(DateTime.fromISO(promotion.end).toLocaleString(DateTime.DATE_FULL))}</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-x-2">
+
+                            <div className="mt-4">
+                              <Link
+                                type="button"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                href={`https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}`}
+                                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                              >
+                                View Image
+                              </Link>
+                            </div>
+
+                            {calculate_date_different(promotion.created) <= 1 ? (<div className="mt-5">
+                              <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                NEWLY ADDED
+                              </span>
+                            </div>) : calculate_end_date(promotion.end) >= 0 ? (<div className="mt-5">
+                              <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                ENDED
+                              </span>
+                            </div>) : (<div className="mt-5">
+                              <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                ACTIVE
+                              </span>
+                            </div>)}
+
+                          </div>
+
+                        </div>
+                      </div>
+                    ))}
+
           </div>
 
           <nav
