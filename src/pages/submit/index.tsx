@@ -98,7 +98,7 @@ function Index() {
     return (
         <>
         <Head>
-            <title>Sasaje | Sales &Promotions </title>
+            <title>Sasaje | Promotions </title>
         </Head>
             <PrimaryLayout>
                 <div className="px-4 py-4 sm:px-0">
