@@ -61,7 +61,7 @@ export default function Home(props: any) {
   return (
     <>
       <Head>
-        <title>{search === "" ? "Sasa | Promotion Tracker" : `Search : ${search}`}</title>
+        <title>{search === "" ? "Sasaje | Promotion Tracker" : `Search : ${search}`}</title>
       </Head>
       <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
