@@ -8,7 +8,6 @@ import { FcRight, FcLeft, FcLike, FcGlobe, FcOk, FcCloseUpMode, FcCancel, FcIdea
 import Link from "next/link";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import Head from 'next/head'
 import * as changeCase from "change-case";
 
 const fetch_promotions = async (skip: number, search: string) => {
@@ -60,9 +59,6 @@ export default function Home(props: any) {
 
   return (
     <>
-      <Head>
-        <title>Sasaje | Sales & Promotions </title>
-      </Head>
       <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
           <div className="relative rounded-md">
