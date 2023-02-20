@@ -62,7 +62,7 @@ export default function Home(props: any) {
   return (
     <>
       <Head>
-        <title>Sasaje | Promotions </title>
+        <title>Sasaje | Deals Grabber </title>
       </Head>
       <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
