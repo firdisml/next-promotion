@@ -70,7 +70,7 @@ export default function Home(props: any) {
           <div className="relative rounded-md">
             <input type="text" name="price" id="price" onChange={(event) => {
               set_search(event.currentTarget.value)
-              router.push(`?page=1`)
+              set_start(1)
             }} className="h-10 block h-12 w-full rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search Promotions" />
             <div className="absolute inset-y-0 right-0 flex items-center">
               <select id="currency" name="currency" className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
