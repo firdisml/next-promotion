@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import PrimaryLayout from 'layout/PrimaryLayout'
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,7 +11,24 @@ import Head from 'next/head'
 function Index() {
 
     const router = useRouter()
-    const MyContainer = ({ className, children }: any) => {
+    const [loading, set_loading] = useState(false)
+    const [title, set_title] = useState("")
+    const [category, set_category] = useState("Food & Baverage")
+    const [link, set_link] = useState("")
+    const [state, set_state] = useState("Selangor")
+    const [shop, set_shop] = useState("")
+    const [image, set_image] = useState<Blob>();
+    const [start_date, set_start_date] = useState<Date>();
+    const [end_date, set_end_date] = useState<Date>();
+    const [image_local_url, set_image_local_url] = useState<string>();
+    const reRef = useRef<ReCAPTCHA>(null);
+    const promotion_default_visibility = false
+    let toast_id;
+
+    const datepicker_container = ({ className, children }: {
+        className: string
+        children: ReactNode
+    }) => {
         return (
             <CalendarContainer className={className}>
                 <div style={{ background: "#f0f0f0", padding: "0.5rem" }} className="rounded-md font-mono">
@@ -20,38 +37,25 @@ function Index() {
             </CalendarContainer>
         );
     };
-    const [loading, set_loading] = useState(false)
-    const [title, set_title] = useState("")
-    const [category, set_category] = useState("Food & Baverage")
-    const [link, set_link] = useState("")
-    const [state, set_state] = useState("Selangor")
-    const [shop, set_shop] = useState("")
-    const [image, setImage] = useState<any>(null);
-    const [start_date, set_start_date] = useState<any>();
-    const [end_date, set_end_date] = useState<any>();
-    const [createObjectURL, setCreateObjectURL] = useState<any>(null);
-    let toast_id;
-    let promotion_default_visibility = false
-    const reRef = useRef<any>();
 
-    const uploadToClient = (event: any) => {
+    const upload_image = (event: { target: HTMLInputElement & EventTarget }) => {
         if (event.target.files && event.target.files[0]) {
-            const i: any = event.target.files[0];
+            const file = event.target.files[0];
 
-            setImage(i);
-            setCreateObjectURL(URL.createObjectURL(i));
+            set_image(file);
+            set_image_local_url(URL.createObjectURL(file));
         }
     };
 
-    const handle_submit = async (e: any) => {
+    const handle_submit = async (event: React.FormEvent) => {
         //Prevent Refresh
-        e.preventDefault()
+        event.preventDefault()
 
         //Call Recaptcha
         const token = await reRef.current?.executeAsync();
 
         //Reset Recaptcha
-        reRef.current.reset();
+        reRef.current?.reset();
 
         //Loading True ; Disabling Buttons
         set_loading(true)
@@ -66,11 +70,11 @@ function Index() {
         data.append('link', link);
         data.append('shop', shop);
         data.append('state', state);
-        data.append('image', image);
-        data.append('visible', promotion_default_visibility as any);
-        data.append('start', new Date(start_date).toISOString());
-        data.append('end', new Date(end_date).toISOString());
-        data.append('g-recaptcha-response', token);
+        data.append('image', image as Blob);
+        data.append('visible', promotion_default_visibility.toString());
+        data.append('start', new Date(start_date as Date).toISOString());
+        data.append('end', new Date(end_date as Date).toISOString());
+        data.append('g-recaptcha-response', token as string);
 
         try {
 
@@ -109,11 +113,14 @@ function Index() {
             <Head>
                 <title>Sasaje | Deals Grabber </title>
             </Head>
+
             <PrimaryLayout>
                 <div className="px-4 py-4 sm:px-0">
                     <div className="bg-white overflow-hidden shadow rounded-lg">
                         <form className="px-4 py-5 sm:p-6" onSubmit={handle_submit}>
+
                             <ReCAPTCHA sitekey='6Lfds48kAAAAAEeYku0Py2NC-g65FbfMJBuRqCmr' size='invisible' ref={reRef} />
+
                             <div className="col-span-6">
                                 <label
                                     htmlFor="title"
@@ -133,6 +140,7 @@ function Index() {
                                     className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm"
                                 />
                             </div>
+
                             <div className="col-span-6 mt-5">
                                 <label htmlFor="country" className="block text-sm font-medium">Category</label>
                                 <select id="category" disabled={loading} name="category" onChange={(e) => { set_category(e.currentTarget.value) }} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
@@ -140,6 +148,7 @@ function Index() {
                                     <option>Other</option>
                                 </select>
                             </div>
+
                             <div className="col-span-6 mt-5">
                                 <label
                                     htmlFor="link"
@@ -157,6 +166,7 @@ function Index() {
                                     className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm"
                                 />
                             </div>
+
                             <div className="col-span-6 mt-5">
                                 <label
                                     htmlFor="link"
@@ -175,6 +185,7 @@ function Index() {
                                     className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm"
                                 />
                             </div>
+
                             <div className="col-span-6 sm:col-span-3 mt-5">
                                 <label htmlFor="country" className="block text-sm font-medium">State</label>
                                 <select disabled={loading} id="state" name="state" onChange={(e) => (set_state(e.currentTarget.value))} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
@@ -188,9 +199,9 @@ function Index() {
                                 <label htmlFor="country" className="block text-sm font-medium">Start Date</label>
                                 <DatePicker
                                     selected={start_date}
-                                    calendarContainer={MyContainer}
+                                    calendarContainer={datepicker_container}
                                     className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    onChange={(date:any) => set_start_date(date)}
+                                    onChange={(date: Date) => set_start_date(date)}
                                     placeholderText="Promotion's Start Date"
                                     withPortal
                                     readOnly={loading}
@@ -201,9 +212,9 @@ function Index() {
                                 <label htmlFor="country" className="block text-sm font-medium">End Date</label>
                                 <DatePicker
                                     selected={end_date}
-                                    calendarContainer={MyContainer}
+                                    calendarContainer={datepicker_container}
                                     className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    onChange={(date:any) => set_end_date(date)}
+                                    onChange={(date: Date) => set_end_date(date)}
                                     placeholderText="Promotion's End Date"
                                     withPortal
                                     readOnly={loading}
@@ -212,7 +223,9 @@ function Index() {
 
                             <div className="col-span-6 sm:col-span-3 mt-5">
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload Picture</label>
-                                <input accept="image/*" disabled={loading} onChange={uploadToClient} required className="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+                                <div className='flex flex-col gap-y-5'>
+                                    <input accept="image/*" disabled={loading} onChange={upload_image} required className="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+                                </div>
                             </div>
 
                             <div className="col-span-6 sm:col-span-3 mt-5">
@@ -225,6 +238,7 @@ function Index() {
                                     Submit Promotion
                                 </button>
                             </div>
+
                         </form>
                     </div>
                 </div>
