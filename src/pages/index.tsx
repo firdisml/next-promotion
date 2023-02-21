@@ -13,7 +13,6 @@ import {
   FcIdea,
 } from "react-icons/fc";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
@@ -26,8 +25,7 @@ const fetch_promotions = async (skip: number, search: string) => {
   return fetch_transactions_count.data;
 };
 
-export default function Home(props: any) {
-  const router = useRouter();
+export default function Index() {
   const [search, set_search] = useState("");
   const [promotion_list, set_promotion_list] = useState([]);
   const [promotion_count, set_promotion_count] = useState(0);
@@ -36,7 +34,7 @@ export default function Home(props: any) {
   const skip = start === 1 ? 0 : (start - 1) * 9;
   const limit = Math.ceil(promotion_count / 9);
 
-  const { isLoading, isFetching, error } = useQuery(
+  const { isLoading, isFetching } = useQuery(
     ["promotions", skip, search],
     () => fetch_promotions(skip, search),
     {
@@ -47,7 +45,7 @@ export default function Home(props: any) {
     }
   );
 
-  function calculate_date_different(promotion_created_date: Date) {
+  function calculate_date_different(promotion_created_date: string) {
     const created_date = new Date(promotion_created_date);
     const current_date = new Date();
 
@@ -57,7 +55,7 @@ export default function Home(props: any) {
     return days_difference;
   }
 
-  function calculate_end_date(promotion_end_date: Date) {
+  function calculate_end_date(promotion_end_date: string) {
     const end_date = new Date(promotion_end_date);
     const current_date = new Date();
 
@@ -72,6 +70,7 @@ export default function Home(props: any) {
       <Head>
         <title>Sasaje | Deals Grabber </title>
       </Head>
+
       <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
           <div className="relative rounded-md">
@@ -93,7 +92,6 @@ export default function Home(props: any) {
                 className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               >
                 <option>Store</option>
-                <option>State</option>
               </select>
             </div>
           </div>
@@ -101,8 +99,8 @@ export default function Home(props: any) {
           {search === "" ? (
             <div className="flex grid-cols-3">
               <h1 className="mx-auto font-semibold text-lg pb-1 flex">
-                <FcIdea className="h-6 w-6 mr-3" />
-                Latest Promotions <FcIdea className="h-6 w-6 ml-3" />
+                <FcLike className="h-6 w-6 mr-3" />
+                Latest Promotions <FcLike className="h-6 w-6 ml-3" />
               </h1>
             </div>
           ) : null}
@@ -118,7 +116,18 @@ export default function Home(props: any) {
             ) : promotion_list.length === 0 ? (
               <div className="mx-auto col-span-3">💔 No Result Found</div>
             ) : (
-              promotion_list?.map((promotion: any, index: number) => (
+              promotion_list?.map((promotion: {
+                id: string,
+                title: string,
+                category: string,
+                shop: string,
+                state: string,
+                link: string,
+                created: string,
+                start: string,
+                end: string,
+                visible: Boolean
+              }, index: number) => (
                 <div
                   key={index}
                   className="bg-white border border-gray-300 inline-block rounded-md"

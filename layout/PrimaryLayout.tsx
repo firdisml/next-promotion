@@ -1,12 +1,14 @@
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { FcLike } from "react-icons/fc";
+import { FcLike, FcPlus } from "react-icons/fc";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
 
 
-export default function PrimaryLayout(props: any) {
+export default function PrimaryLayout(props: {
+    children: React.ReactNode
+}) {
     const router = useRouter()
     return (
         <>
@@ -19,13 +21,13 @@ export default function PrimaryLayout(props: any) {
                                     <div className="flex items-center">
                                         <div className="flex flex-shrink-0">
                                             <Link href={"/"}>
-                                            <picture>
-                                                <img
-                                                    className="h-12 w-12 opacity-80"
-                                                    src="logo.svg"
-                                                    alt="Workflow"
-                                                />
-                                            </picture>
+                                                <picture>
+                                                    <img
+                                                        className="h-12 w-12 opacity-80"
+                                                        src="logo.svg"
+                                                        alt="Workflow"
+                                                    />
+                                                </picture>
                                             </Link>
                                         </div>
 
@@ -38,12 +40,12 @@ export default function PrimaryLayout(props: any) {
                                                 onClick={() => { router.push('/') }}
                                                 className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                                             >
-                                                <FcLike className="h-5 w-5 mr-2" /> Browser Promotion
+                                                <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
                                             </button>) : (<button
                                                 onClick={() => { router.push('/submit') }}
                                                 className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                                             >
-                                                <FcLike className="h-5 w-5 mr-2" /> Submit Promotion
+                                                <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                             </button>)}
 
                                         </div>
@@ -80,7 +82,7 @@ export default function PrimaryLayout(props: any) {
                                         className="flex text-white bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
                                         aria-current="page"
                                     >
-                                        <FcLike className="h-5 w-5 mr-2" /> Submit Promotion
+                                        <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                     </Disclosure.Button>)}
 
 
