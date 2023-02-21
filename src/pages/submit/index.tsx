@@ -13,7 +13,6 @@ function Index() {
     const router = useRouter()
     const MyContainer = ({ className, children }: any) => {
         return (
-
             <CalendarContainer className={className}>
                 <div style={{ background: "#f0f0f0", padding: "0.5rem" }} className="rounded-md font-mono">
                 </div>
@@ -22,16 +21,17 @@ function Index() {
         );
     };
     const [loading, set_loading] = useState(false)
-    const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
     const [title, set_title] = useState("")
     const [category, set_category] = useState("Food & Baverage")
     const [link, set_link] = useState("")
     const [state, set_state] = useState("Selangor")
     const [shop, set_shop] = useState("")
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState<any>(null);
+    const [start_date, set_start_date] = useState<any>();
+    const [end_date, set_end_date] = useState<any>();
     const [createObjectURL, setCreateObjectURL] = useState<any>(null);
     let toast_id;
+    let promotion_default_visibility = false
     const reRef = useRef<any>();
 
     const uploadToClient = (event: any) => {
@@ -44,30 +44,38 @@ function Index() {
     };
 
     const handle_submit = async (e: any) => {
-
+        //Prevent Refresh
         e.preventDefault()
 
+        //Call Recaptcha
         const token = await reRef.current?.executeAsync();
+
+        //Reset Recaptcha
         reRef.current.reset();
+
+        //Loading True ; Disabling Buttons
         set_loading(true)
+
+        //Call toast
         toast_id = toast.loading("Submitting");
+
+        //Formdata
+        const data = new FormData();
+        data.append('title', title);
+        data.append('category', category);
+        data.append('link', link);
+        data.append('shop', shop);
+        data.append('state', state);
+        data.append('image', image);
+        data.append('visible', promotion_default_visibility as any);
+        data.append('start', new Date(start_date).toISOString());
+        data.append('end', new Date(end_date).toISOString());
+        data.append('g-recaptcha-response', token);
 
         try {
 
             await axios.post("https://go-mongo-promotion-production.up.railway.app/api/promotions",
-                {
-                    "title": title,
-                    "category": category,
-                    "description": "Test",
-                    "link": link,
-                    "shop": shop,
-                    "image": image,
-                    "state": state,
-                    "visible": false,
-                    "start": startDate,
-                    "end": endDate,
-                    "g-recaptcha-response": token
-                }, {
+                data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -79,9 +87,11 @@ function Index() {
                 isLoading: false,
                 autoClose: 3000,
             });
+
             router.push('/')
 
         } catch (error) {
+
             toast.update(toast_id, {
                 render: "Submission Error",
                 type: "error",
@@ -89,17 +99,16 @@ function Index() {
                 autoClose: 3000,
             });
             set_loading(false)
+
         }
-
-
     }
 
 
     return (
         <>
-        <Head>
-            <title>Sasaje | Deals Grabber </title>
-        </Head>
+            <Head>
+                <title>Sasaje | Deals Grabber </title>
+            </Head>
             <PrimaryLayout>
                 <div className="px-4 py-4 sm:px-0">
                     <div className="bg-white overflow-hidden shadow rounded-lg">
@@ -176,18 +185,26 @@ function Index() {
                             </div>
 
                             <div className="col-span-6 sm:col-span-3 mt-5">
-                                <label htmlFor="country" className="block text-sm font-medium">Duration</label>
+                                <label htmlFor="country" className="block text-sm font-medium">Start Date</label>
                                 <DatePicker
-                                    selectsRange={true}
-                                    startDate={startDate}
-                                    className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    endDate={endDate}
-                                    onChange={(update: any) => {
-                                        setDateRange(update);
-                                    }}
-                                    placeholderText="Promotion's Duration"
+                                    selected={start_date}
                                     calendarContainer={MyContainer}
-                                    autoComplete='nope'
+                                    className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    onChange={(date:any) => set_start_date(date)}
+                                    placeholderText="Promotion's Start Date"
+                                    withPortal
+                                    readOnly={loading}
+                                />
+                            </div>
+
+                            <div className="col-span-6 sm:col-span-3 mt-5">
+                                <label htmlFor="country" className="block text-sm font-medium">End Date</label>
+                                <DatePicker
+                                    selected={end_date}
+                                    calendarContainer={MyContainer}
+                                    className="mt-1 block w-full font-mono rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    onChange={(date:any) => set_end_date(date)}
+                                    placeholderText="Promotion's End Date"
                                     withPortal
                                     readOnly={loading}
                                 />
@@ -207,11 +224,7 @@ function Index() {
                                 >
                                     Submit Promotion
                                 </button>
-
                             </div>
-
-
-
                         </form>
                     </div>
                 </div>

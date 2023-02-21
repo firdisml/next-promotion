@@ -75,7 +75,7 @@ export default function PrimaryLayout(props: any) {
                                     >
                                         <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
                                     </Disclosure.Button>) : (<Disclosure.Button
-                                        onClick={() => { router.push('/submit') }}
+                                        onClick={() => { void router.push('/submit') }}
                                         as="a"
                                         className="flex text-white bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium"
                                         aria-current="page"
