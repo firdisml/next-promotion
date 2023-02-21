@@ -24,8 +24,9 @@ export default function Home(props: any) {
   const [search, set_search] = useState("")
   const [promotion_list, set_promotion_list] = useState([])
   const [promotion_count, set_promotion_count] = useState(0)
+  const [start, set_start] = useState(1)
 
-  const skip = props.page === 1 ? 0 : (props.page - 1) * 9;
+  const skip = start === 1 ? 0 : (start - 1) * 9;
   const limit = Math.ceil(promotion_count / 9);
 
   const { isLoading, isFetching, error } = useQuery(
@@ -166,15 +167,15 @@ export default function Home(props: any) {
             </div>
             <div className="flex-1 flex justify-between sm:justify-end">
               <button
-                onClick={() => router.push(`?page=${props.page - 1}`)}
-                disabled={props.page <= 1}
+                onClick={() => set_start(start-1)}
+                disabled={start <= 1}
                 className="relative inline-flex font-semibold disabled:bg-gray-200 items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <FcLeft className="h-5 w-5 mr-2" /> Back
               </button>
               <button
-                onClick={() => router.push(`?page=${props.page + 1}`)}
-                disabled={props.page >= limit}
+                onClick={() => set_start(start+1)}
+                disabled={start >= limit}
                 className="ml-3 relative inline-flex disabled:bg-gray-200 font-semibold items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 Next <FcRight className="ml-2 h-5 w-5" />
@@ -185,10 +186,4 @@ export default function Home(props: any) {
       </PrimaryLayout>
     </>
   )
-}
-export const getServerSideProps: GetServerSideProps = async (
-  ctx: GetServerSidePropsContext
-) => {
-  const { query: { page = 1 } } = ctx;
-  return { props: { page: +page } };
 }
