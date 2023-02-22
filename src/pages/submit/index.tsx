@@ -21,8 +21,8 @@ function Index() {
     const [state, set_state] = useState(States[0])
     const [shop, set_shop] = useState("")
     const [image, set_image] = useState<Blob>();
-    const [start_date, set_start_date] = useState<Date>();
-    const [end_date, set_end_date] = useState<Date>();
+    const [start_date, set_start_date] = useState<Date>(new Date());
+    const [end_date, set_end_date] = useState<Date>(new Date());
     const [image_local_url, set_image_local_url] = useState<string>();
     const reRef = useRef<ReCAPTCHA>(null);
     const promotion_default_visibility = false
