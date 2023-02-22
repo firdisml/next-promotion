@@ -11,11 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.11",
     "@heroicons/react": "v1",
-    "@next/font": "13.1.6",
+    "@next/font": "^13.1.6",
     "@tailwindcss/forms": "^0.5.3",
     "@types/luxon": "^3.2.0",
     "@types/node": "18.13.0",
-    "@types/pascalcase": "^1.0.1",
     "@types/react": "18.0.28",
     "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "18.0.11",
@@ -29,7 +28,6 @@
     "flowbite-react": "^0.3.8",
     "luxon": "^3.2.1",
     "next": "13.1.6",
-    "pascalcase": "^2.0.0",
     "postcss": "^8.4.21",
     "react": "18.2.0",
     "react-datepicker": "^4.10.0",
@@ -38,7 +36,6 @@
     "react-icons": "^4.7.1",
     "react-query": "^3.39.3",
     "react-toastify": "^9.1.1",
-    "tailwind-datepicker-react": "^1.2.3",
     "tailwindcss": "^3.2.6",
     "typescript": "4.9.5"
   }

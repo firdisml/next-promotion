@@ -3,6 +3,11 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { FcLike, FcPlus } from "react-icons/fc";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Pacifico } from '@next/font/google'
+const pacifico = Pacifico({
+  subsets: ['latin'],
+  weight: ['400']
+})
 
 
 
@@ -20,14 +25,8 @@ export default function PrimaryLayout(props: {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex flex-shrink-0">
-                                            <Link href={"/"}>
-                                                <picture>
-                                                    <img
-                                                        className="h-12 w-12 opacity-80"
-                                                        src="logo.svg"
-                                                        alt="Workflow"
-                                                    />
-                                                </picture>
+                                            <Link href={"/"} className="text-white text-2xl lg:text-3xl mb-2">
+                                                <h1  className={pacifico.className}>Sasaje.</h1>
                                             </Link>
                                         </div>
 

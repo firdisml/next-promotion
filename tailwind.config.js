@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'pacifico': ['Pacifico', 'sans-serif']
+      },
       colors: {
         'white': '#ffffff',
         'gray': {
