@@ -9,6 +9,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Head from 'next/head'
 import { States } from 'utils/states';
 import { Categories } from 'utils/category';
+import { ExclamationIcon } from '@heroicons/react/outline';
 
 function Index() {
 
@@ -118,7 +119,21 @@ function Index() {
 
             <PrimaryLayout>
                 <div className="px-4 py-4 sm:px-0">
-                    <div className="bg-white overflow-hidden shadow rounded-lg">
+                    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md">
+                        <div className="flex">
+                            <div className="flex-shrink-0">
+                                <ExclamationIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                            </div>
+                            <div className="ml-3">
+                                <p className="text-sm text-yellow-700">
+                                    Your submission will undergo a review process before it can be visible on the website.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-white overflow-hidden shadow rounded-lg mt-5">
+
                         <form className="px-4 py-5 sm:p-6" onSubmit={handle_submit}>
 
                             <ReCAPTCHA sitekey='6Lfds48kAAAAAEeYku0Py2NC-g65FbfMJBuRqCmr' size='invisible' ref={reRef} />
