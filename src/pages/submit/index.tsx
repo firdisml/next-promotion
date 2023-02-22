@@ -179,6 +179,7 @@ function Index() {
                                     disabled={loading}
                                     onChange={(e) => (set_link(e.currentTarget.value))}
                                     id="link"
+                                    required
                                     placeholder="Promotion's Link"
                                     className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm"
                                 />
@@ -196,6 +197,7 @@ function Index() {
                                     maxLength={30}
                                     disabled={loading}
                                     name="shop"
+                                    required
                                     onChange={(e) => (set_shop(e.currentTarget.value))}
                                     placeholder="Promotion's Shop"
                                     className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm"
