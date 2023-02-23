@@ -37,12 +37,12 @@ export default function PrimaryLayout(props: {
 
                                             {router.route.includes("/submit") ? (<button
                                                 onClick={() => { router.push('/') }}
-                                                className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                                                className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                                             >
                                                 <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
                                             </button>) : (<button
                                                 onClick={() => { router.push('/submit') }}
-                                                className="flex text-white bg-indigo-500 font-semibold hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                                                className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
                                             >
                                                 <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                             </button>)}

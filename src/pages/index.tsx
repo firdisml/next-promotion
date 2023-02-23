@@ -96,14 +96,7 @@ export default function Index() {
             </div>
           </div>
           <div className="border-t border-gray-300 mt-4 mb-4" />
-          {search === "" ? (
-            <div className="flex grid-cols-3">
-              <h1 className="mx-auto font-semibold text-lg pb-1 flex">
-                <FcLike className="h-6 w-6 mr-3" />
-                Latest Promotions <FcLike className="h-6 w-6 ml-3" />
-              </h1>
-            </div>
-          ) : null}
+          
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {isLoading ? (
               <div className="mx-auto col-span-3">
@@ -137,12 +130,9 @@ export default function Index() {
                       rel="noopener noreferrer"
                       target="_blank"
                       href={promotion.link}
-                      className="text-md font-semibold text-black truncate block hover:opacity-70"
+                      className="text-sm font-semibold text-black truncate block hover:opacity-70"
                     >
-                      {changeCase.capitalCase(promotion.title, {
-                        splitRegexp: /([a-z])([A-Z0-9])/g,
-                        stripRegexp: /[^A-Z0-9%]/gi,
-                      })}
+                      {promotion.title.toUpperCase()}
                     </Link>
                     <p className="text-sm font-medium text-gray-500 mt-1">
                       {changeCase

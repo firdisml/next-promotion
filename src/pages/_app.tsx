@@ -6,6 +6,11 @@ import {
 } from 'react-query'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { DM_Sans } from '@next/font/google'
+const dmsans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400']
+})
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -13,7 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer bodyClassName="font-mono"/>
-      <Component {...pageProps} />
+      <main className={dmsans.className}>
+        <Component {...pageProps} />
+      </main>
     </QueryClientProvider>
   )
 
