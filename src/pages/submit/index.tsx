@@ -36,7 +36,7 @@ function Index() {
             <CalendarContainer className={className}>
                 <div style={{ background: "#f0f0f0", padding: "0.5rem" }} className="rounded-md font-mono">
                 </div>
-                <div className='font-mono' style={{ position: "relative", paddingTop: "-10rem" }}>{children}</div>
+                <div style={{ position: "relative", paddingTop: "-10rem" }}>{children}</div>
             </CalendarContainer>
         );
     };

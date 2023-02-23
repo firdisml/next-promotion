@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastContainer bodyClassName="font-mono"/>
+      <ToastContainer bodyClassName={dmsans.className}/>
       <main className={dmsans.className}>
         <Component {...pageProps} />
       </main>
