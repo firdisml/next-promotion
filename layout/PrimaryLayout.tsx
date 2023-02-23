@@ -46,12 +46,12 @@ export default function PrimaryLayout(props: {
 
                                             {router.route.includes("/submit") ? (<button
                                                 onClick={() => { router.push('/') }}
-                                                className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                                                className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-semibold"
                                             >
                                                 <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
                                             </button>) : (<button
                                                 onClick={() => { router.push('/submit') }}
-                                                className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                                                className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-semibold"
                                             >
                                                 <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                             </button>)}
@@ -90,14 +90,14 @@ export default function PrimaryLayout(props: {
                                     {router.route.includes("/submit") ? (<Disclosure.Button
                                         onClick={() => { router.push('/') }}
                                         as="a"
-                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-base font-medium"
+                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-base font-semibold"
                                         aria-current="page"
                                     >
                                         <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
                                     </Disclosure.Button>) : (<Disclosure.Button
                                         onClick={() => { void router.push('/submit') }}
                                         as="a"
-                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-medium"
+                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-semibold"
                                         aria-current="page"
                                     >
                                         <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
@@ -106,7 +106,7 @@ export default function PrimaryLayout(props: {
                                     <Disclosure.Button
                                         onClick={() => { setTheme(theme === 'light' ? 'dark' : 'light') }}
                                         as="a"
-                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-medium"
+                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-semibold"
                                         aria-current="page"
                                     >
 
