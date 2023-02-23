@@ -235,7 +235,7 @@ export default function Index() {
 
           <nav className="py-3 relative flex items-center justify-between border-t border-gray-300 mt-4">
             <div className="hidden sm:block">
-              <p className="text-sm text-gray-700">
+              <p className="text-sm text-gray-700 dark:text-white">
                 Showing <span className="font-medium">{skip + 1}</span> to{" "}
                 <span className="font-medium">
                   {skip + promotion_list.length}
