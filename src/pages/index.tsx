@@ -82,7 +82,7 @@ export default function Index() {
                 set_search(event.currentTarget.value);
                 set_start(1);
               }}
-              className="h-10 block h-12 w-full rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="h-10 block h-12 w-full text-black rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Search Promotions"
             />
             <div className="absolute inset-y-0 right-0 flex items-center">
@@ -137,7 +137,7 @@ export default function Index() {
                       rel="noopener noreferrer"
                       target="_blank"
                       href={promotion.link}
-                      className="text-md font-semibold truncate block hover:opacity-70"
+                      className="text-md font-semibold text-black truncate block hover:opacity-70"
                     >
                       {changeCase.capitalCase(promotion.title, {
                         splitRegexp: /([a-z])([A-Z0-9])/g,
