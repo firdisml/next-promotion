@@ -87,7 +87,7 @@ export default function Index() {
                 set_start(1);
               }}
               className="h-10 block h-12 w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-md border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="Search Promotions"
+              placeholder="Search"
             />
             <div className="absolute inset-y-0 right-0 flex items-center">
               <select
@@ -127,9 +127,9 @@ export default function Index() {
               }, index: number) => (
                 <div
                   key={index}
-                  className="dark:bg-gray-900 bg-white border border-gray-300 dark:border-gray-700 inline-block rounded-md"
+                  className="dark:bg-gray-900 bg-white border border-gray-300 dark:border-gray-700 inline-block rounded-md overflow-hidden"
                 >
-                  <div className="px-4 py-5 sm:p-6 rounded-">
+                  <div className="px-4 py-5 sm:p-6 rounded-md">
                     <Link
                       rel="noopener noreferrer"
                       target="_blank"
@@ -242,14 +242,14 @@ export default function Index() {
               <button
                 onClick={() => set_start(start - 1)}
                 disabled={start <= 1 || isFetching || isLoading}
-                className="relative inline-flex disabled:bg-gray-200 font-medium focus:ring focus:ring-indigo-600 items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="relative inline-flex disabled:bg-gray-300 font-medium focus:ring focus:ring-indigo-600 items-center px-4 py-2 border border-gray-300 text-sm rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <FcLeft className="h-5 w-5 mr-2" /> Back
               </button>
               <button
                 onClick={() => set_start(start + 1)}
                 disabled={start >= limit || isFetching || isLoading}
-                className="ml-3 relative inline-flex focus:outline-none focus:ring focus:ring-indigo-600 disabled:bg-gray-200 font-medium items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="ml-3 relative inline-flex focus:outline-none focus:ring focus:ring-indigo-600 disabled:bg-gray-300 font-medium items-center px-4 py-2 border border-gray-300 text-sm rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 Next <FcRight className="ml-2 h-5 w-5" />
               </button>
