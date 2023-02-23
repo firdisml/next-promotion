@@ -1,5 +1,5 @@
 import PrimaryLayout from "layout/PrimaryLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { DateTime } from "luxon";
@@ -10,12 +10,12 @@ import {
   FcGlobe,
   FcOk,
   FcCancel,
-  FcIdea,
 } from "react-icons/fc";
 import Link from "next/link";
 import Head from "next/head";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
+
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(
@@ -65,13 +65,17 @@ export default function Index() {
     return days_difference;
   }
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true) }, []);
+
+  if (!mounted) return <></>;
+
   return (
     <>
       <Head>
         <title>Sasaje | Deals Grabber </title>
       </Head>
-
-      <PrimaryLayout>
         <div className="px-4 py-4 sm:px-0">
           <div className="relative rounded-md">
             <input
@@ -82,21 +86,21 @@ export default function Index() {
                 set_search(event.currentTarget.value);
                 set_start(1);
               }}
-              className="h-10 block h-12 w-full text-black rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="h-10 block h-12 w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-md border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Search Promotions"
             />
             <div className="absolute inset-y-0 right-0 flex items-center">
               <select
                 id="currency"
                 name="currency"
-                className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="h-full rounded-md text-black dark:text-white border-transparent bg-transparent py-0 pl-2 pr-7 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               >
                 <option>Store</option>
               </select>
             </div>
           </div>
-          <div className="border-t border-gray-300 mt-4 mb-4" />
-          
+          <div className="border-t border-gray-300 dark:border-gray-700 mt-4 mb-4" />
+
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mt-3">
             {isLoading ? (
               <div className="mx-auto col-span-3">
@@ -107,7 +111,7 @@ export default function Index() {
                 <Spinner />
               </div>
             ) : promotion_list.length === 0 ? (
-              <div className="mx-auto col-span-3">💔 No Result Found</div>
+              <div className="mx-auto col-span-3 text-black dark:text-white">No Result Found</div>
             ) : (
               promotion_list?.map((promotion: {
                 id: string,
@@ -123,24 +127,24 @@ export default function Index() {
               }, index: number) => (
                 <div
                   key={index}
-                  className="bg-white border border-gray-300 inline-block rounded-md"
+                  className="dark:bg-gray-900 bg-white border border-gray-300 dark:border-gray-700 inline-block rounded-md"
                 >
                   <div className="px-4 py-5 sm:p-6 rounded-">
                     <Link
                       rel="noopener noreferrer"
                       target="_blank"
                       href={promotion.link}
-                      className="text-sm font-semibold text-black truncate block hover:opacity-70"
+                      className="text-sm font-semibold tracking-wider text-black dark:text-white truncate block hover:opacity-70"
                     >
                       {promotion.title.toUpperCase()}
                     </Link>
-                    <p className="text-sm font-medium text-gray-500 mt-1">
+                    <p className="text-sm font-medium text-gray-500 dark:text-gray-300 mt-1">
                       {changeCase
                         .capitalCase(promotion.shop)
                         .replace("/[^A-Zds]/gi", "%")}
                     </p>
                     <div className="flex flex-col mt-2 gap-y-2">
-                      <div className="flex text-gray-500">
+                      <div className="flex text-gray-500 dark:text-gray-300">
                         <span>
                           <FcGlobe className="h-5 w-5 mr-2" />
                         </span>
@@ -150,7 +154,7 @@ export default function Index() {
                             .replace(/([A-Z])/g, " $1")}
                         </p>
                       </div>
-                      <div className="flex text-gray-500">
+                      <div className="flex text-gray-500 dark:text-gray-300">
                         <span>
                           <FcLike className="h-5 w-5 mr-2" />
                         </span>
@@ -161,7 +165,7 @@ export default function Index() {
                           })}
                         </p>
                       </div>
-                      <div className="flex text-gray-500">
+                      <div className="flex text-gray-500 dark:text-gray-300">
                         <span>
                           <FcOk className="h-5 w-5 mr-2" />
                         </span>
@@ -172,7 +176,7 @@ export default function Index() {
                           )}
                         </p>
                       </div>
-                      <div className="flex text-gray-500">
+                      <div className="flex text-gray-500 dark:text-gray-300">
                         <span>
                           <FcCancel className="h-5 w-5 mr-2" />
                         </span>
@@ -191,7 +195,7 @@ export default function Index() {
                           rel="noopener noreferrer"
                           target="_blank"
                           href={`https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}`}
-                          className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           View Image
                         </Link>
@@ -223,7 +227,7 @@ export default function Index() {
             )}
           </div>
 
-          <nav className="py-3 relative flex items-center justify-between border-t border-gray-300 mt-4">
+          <nav className="py-3 relative flex items-center justify-between border-t border-gray-300 dark:border-gray-700 mt-4">
             <div className="hidden sm:block">
               <p className="text-sm text-gray-700 dark:text-white">
                 Showing <span className="font-medium">{skip + 1}</span> to{" "}
@@ -237,22 +241,21 @@ export default function Index() {
             <div className="flex-1 flex justify-between sm:justify-end">
               <button
                 onClick={() => set_start(start - 1)}
-                disabled={start <= 1}
-                className="relative inline-flex disabled:bg-gray-200 font-medium items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                disabled={start <= 1 || isFetching || isLoading}
+                className="relative inline-flex disabled:bg-gray-200 font-medium focus:ring focus:ring-indigo-600 items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <FcLeft className="h-5 w-5 mr-2" /> Back
               </button>
               <button
                 onClick={() => set_start(start + 1)}
-                disabled={start >= limit}
-                className="ml-3 relative inline-flex disabled:bg-gray-200 font-medium items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                disabled={start >= limit || isFetching || isLoading}
+                className="ml-3 relative inline-flex focus:outline-none focus:ring focus:ring-indigo-600 disabled:bg-gray-200 font-medium items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 Next <FcRight className="ml-2 h-5 w-5" />
               </button>
             </div>
           </nav>
         </div>
-      </PrimaryLayout>
     </>
   );
 }
