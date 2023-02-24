@@ -136,7 +136,7 @@ function Index() {
                         <div className="col-span-6">
                             <label
                                 htmlFor="title"
-                                className="block text-black dark:text-white flex text-sm font-medium"
+                                className="flex  text-black dark:text-white text-sm font-medium"
                             >
                                 Title
                             </label>
@@ -164,7 +164,7 @@ function Index() {
                         <div className="col-span-6 mt-5">
                             <label
                                 htmlFor="link"
-                                className="block flex text-black dark:text-white text-sm font-medium"
+                                className="flex text-black dark:text-white text-sm font-medium"
                             >
                                 Link
                             </label>
@@ -176,14 +176,14 @@ function Index() {
                                 id="link"
                                 required
                                 placeholder="Promotion's Link"
-                                className="mt-2 block text-black dark:text-white w-full py-2.5 px-3 dark:text-white dark:bg-gray-800 rounded-md border border-gray-300 dark:border-gray-700 sm:text-sm"
+                                className="mt-2 block text-black dark:text-white w-full py-2.5 px-3 dark:bg-gray-800 rounded-md border border-gray-300 dark:border-gray-700 sm:text-sm"
                             />
                         </div>
 
                         <div className="col-span-6 mt-5">
                             <label
                                 htmlFor="shop"
-                                className="block text-black dark:text-white flex text-sm font-medium"
+                                className="flex text-black dark:text-white text-sm font-medium"
                             >
                                 Shop
                             </label>

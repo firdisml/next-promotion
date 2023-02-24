@@ -56,7 +56,7 @@ export default function PrimaryLayout(props: {
                                                 <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                             </button>)}
 
-                                            <button onClick={() => { setTheme(theme === "dark" ? "light" : "dark") }} className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium">
+                                            <button onClick={() => { setTheme(theme === "dark" ? "light" : "dark") }} className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm">
                                                 {theme === "light" ? (
                                                     <IoIosMoon className="block h-5 w-5" aria-hidden="true" />
                                                 ) : (

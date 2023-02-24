@@ -83,7 +83,7 @@ export default function Index() {
               set_search(event.currentTarget.value);
               set_start(1);
             }}
-            className="h-10 block h-12 w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-md border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="h-12 block w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-md border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             placeholder="Search"
           />
           <div className="absolute inset-y-0 right-0 flex items-center">
@@ -200,19 +200,19 @@ export default function Index() {
 
                     {calculate_date_different(promotion.created) <= 1 ? (
                       <div className="mt-5">
-                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs bg-green-100 text-green-800">
                           NEWLY ADDED
                         </span>
                       </div>
                     ) : calculate_end_date(promotion.end) >= 0 ? (
                       <div className="mt-5">
-                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs bg-red-100 text-red-800">
                           ENDED
                         </span>
                       </div>
                     ) : (
                       <div className="mt-5">
-                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-800">
                           ACTIVE
                         </span>
                       </div>
