@@ -13,7 +13,7 @@ const dmsans = DM_Sans({
 })
 import { ThemeProvider } from 'next-themes';
 import PrimaryLayout from 'layout/PrimaryLayout';
-
+import Head from 'next/head';
 export default function App({ Component, pageProps }: AppProps) {
 
   const queryClient = new QueryClient({
@@ -26,6 +26,10 @@ export default function App({ Component, pageProps }: AppProps) {
   
   return (
     <QueryClientProvider client={queryClient}>
+      <Head>
+        <title>Sasaje | Deals & Promotions </title>
+        <meta name="Sasaje" content="Save Big Promos and Promotions: The Ultimate Tool for Discount Hunters!"/>
+      </Head>
       <ThemeProvider defaultTheme='light' enableSystem={true} attribute='class'>
         <main className={dmsans.className}>
           <PrimaryLayout>
