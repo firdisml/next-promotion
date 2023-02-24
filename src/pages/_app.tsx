@@ -16,7 +16,14 @@ import PrimaryLayout from 'layout/PrimaryLayout';
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme='light' enableSystem={true} attribute='class'>
