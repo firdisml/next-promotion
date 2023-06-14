@@ -30,11 +30,11 @@ export default function Index() {
   const page : any = parseInt(router.query.page as string) || 1
   const search : any = router.query.search || ''
 
-  const start = page === 1 ? 0 : (page - 1) * 5;
+  const skip = page === 1 ? 0 : (page - 1) * 9;
 
   const { isLoading, isFetching } = useQuery(
-    ["promotions", start, search],
-    () => fetch_promotions(start, search),
+    ["promotions", skip, search],
+    () => fetch_promotions(skip, search),
     {
       onSuccess: (data) => {
         set_promotion_count(data?.data?.count);
@@ -43,9 +43,6 @@ export default function Index() {
     }
   );
   
-  
-  console.log(router.query)
-
   function calculate_date_different(promotion_created_date: string) {
     const created_date = new Date(promotion_created_date);
     const current_date = new Date();
@@ -68,7 +65,7 @@ export default function Index() {
 
   const [mounted, setMounted] = useState(false);
 
-  const last = Math.ceil(promotion_count / 5);
+  const last = Math.ceil(promotion_count / 9);
 
   useEffect(() => { setMounted(true) }, []);
 
@@ -228,9 +225,9 @@ export default function Index() {
         <nav className="py-3 relative flex items-center justify-between border-t border-gray-300 dark:border-gray-700 mt-4">
           <div className="hidden sm:block">
             <p className="text-sm text-gray-700 dark:text-white">
-              Showing <span className="font-medium">{start + 1}</span> to{" "}
+              Showing <span className="font-medium">{skip + 1}</span> to{" "}
               <span className="font-medium">
-                {start + promotion_list.length}
+                {skip + promotion_list.length}
               </span>{" "}
               of <span className="font-medium">{promotion_count}</span>{" "}
               results
