@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
 const fetch_promotions = async (skip: number, search: string) => {
@@ -24,11 +23,13 @@ const fetch_promotions = async (skip: number, search: string) => {
   return fetch_transactions_count.data;
 };
 
-export default function Index({ page, search }: { page: number, search: string }) {
+export default function Index() {
   const [promotion_list, set_promotion_list] = useState([]);
   const [promotion_count, set_promotion_count] = useState(0);
   //const [start, set_start] = useState(1);
   const router = useRouter();
+  const page : any = parseInt(router.query.page as string) || 1
+  const search : any = router.query.search || ''
 
   const start = page === 1 ? 0 : (page - 1) * 5;
 
@@ -42,6 +43,9 @@ export default function Index({ page, search }: { page: number, search: string }
       },
     }
   );
+  
+  
+  console.log(router.query)
 
   function calculate_date_different(promotion_created_date: string) {
     const created_date = new Date(promotion_created_date);
@@ -255,13 +259,3 @@ export default function Index({ page, search }: { page: number, search: string }
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (
-  ctx: GetServerSidePropsContext
-) => {
-  const {
-    query: { page = 1, search = "" },
-  } = ctx;
-
-  return { props: { page: +page, search } };
-};
