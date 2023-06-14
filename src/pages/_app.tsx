@@ -27,6 +27,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
+      <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="" />
+        <meta name="twitter:title" content="Sasaje" />
+        <meta name="twitter:description" content="Save Big Promos and Promotions: The Ultimate Tool for Discount Hunters" />
+        <meta name="twitter:image" content="" />
         <title>Sasaje | Deals & Promotions </title>
         <meta name="Sasaje" content="Save Big Promos and Promotions: The Ultimate Tool for Discount Hunters!"/>
       </Head>
