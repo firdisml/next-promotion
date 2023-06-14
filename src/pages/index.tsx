@@ -1,4 +1,3 @@
-import PrimaryLayout from "layout/PrimaryLayout";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -12,10 +11,10 @@ import {
   FcCancel,
 } from "react-icons/fc";
 import Link from "next/link";
-import Head from "next/head";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
-
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(
@@ -25,18 +24,17 @@ const fetch_promotions = async (skip: number, search: string) => {
   return fetch_transactions_count.data;
 };
 
-export default function Index() {
-  const [search, set_search] = useState("");
+export default function Index({ page, search }: { page: number, search: string }) {
   const [promotion_list, set_promotion_list] = useState([]);
   const [promotion_count, set_promotion_count] = useState(0);
-  const [start, set_start] = useState(1);
+  //const [start, set_start] = useState(1);
+  const router = useRouter();
 
-  const skip = start === 1 ? 0 : (start - 1) * 9;
-  const limit = Math.ceil(promotion_count / 9);
+  const start = page === 1 ? 0 : (page - 1) * 5;
 
   const { isLoading, isFetching } = useQuery(
-    ["promotions", skip, search],
-    () => fetch_promotions(skip, search),
+    ["promotions", start, search],
+    () => fetch_promotions(start, search),
     {
       onSuccess: (data) => {
         set_promotion_count(data?.data?.count);
@@ -67,6 +65,8 @@ export default function Index() {
 
   const [mounted, setMounted] = useState(false);
 
+  const last = Math.ceil(promotion_count / 5);
+
   useEffect(() => { setMounted(true) }, []);
 
   if (!mounted) return <></>;
@@ -80,9 +80,9 @@ export default function Index() {
             name="price"
             id="price"
             onChange={(event) => {
-              set_search(event.currentTarget.value);
-              set_start(1);
+              router.push(`?page=${1}&search=${event.currentTarget.value}`)
             }}
+            value={search ? search : ""}
             className="h-12 block w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-md border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             placeholder="Search"
           />
@@ -129,8 +129,7 @@ export default function Index() {
                 <div className="px-4 py-5 sm:p-6 rounded-md">
                   <Link
                     rel="noopener noreferrer"
-                    target="_blank"
-                    href={promotion.link}
+                    href={`/${promotion.id}`}
                     className="text-sm font-semibold tracking-wider text-black dark:text-white truncate block hover:opacity-70"
                   >
                     {promotion.title.toUpperCase()}
@@ -227,9 +226,9 @@ export default function Index() {
         <nav className="py-3 relative flex items-center justify-between border-t border-gray-300 dark:border-gray-700 mt-4">
           <div className="hidden sm:block">
             <p className="text-sm text-gray-700 dark:text-white">
-              Showing <span className="font-medium">{skip + 1}</span> to{" "}
+              Showing <span className="font-medium">{start + 1}</span> to{" "}
               <span className="font-medium">
-                {skip + promotion_list.length}
+                {start + promotion_list.length}
               </span>{" "}
               of <span className="font-medium">{promotion_count}</span>{" "}
               results
@@ -237,15 +236,15 @@ export default function Index() {
           </div>
           <div className="flex-1 flex justify-between sm:justify-end">
             <button
-              onClick={() => set_start(start - 1)}
-              disabled={start <= 1 || isFetching || isLoading}
+              onClick={() => router.push(`?page=${page - 1}&search=${search}`)}
+              disabled={page <= 1}
               className="relative inline-flex disabled:bg-gray-300 font-semibold focus:ring focus:ring-indigo-600 items-center px-4 py-2 border border-gray-300 text-sm rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
               <FcLeft className="h-5 w-5 mr-2" /> Back
             </button>
             <button
-              onClick={() => set_start(start + 1)}
-              disabled={start >= limit || isFetching || isLoading}
+              onClick={() => router.push(`?page=${page + 1}&search=${search}`)}
+              disabled={page >= last}
               className="ml-3 relative inline-flex focus:outline-none focus:ring focus:ring-indigo-600 disabled:bg-gray-300 font-semibold items-center px-4 py-2 border border-gray-300 text-sm rounded-md text-gray-700 bg-white hover:bg-gray-100"
             >
               Next <FcRight className="ml-2 h-5 w-5" />
@@ -256,3 +255,13 @@ export default function Index() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const {
+    query: { page = 1, search = "" },
+  } = ctx;
+
+  return { props: { page: +page, search } };
+};
