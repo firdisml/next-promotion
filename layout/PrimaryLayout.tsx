@@ -34,9 +34,9 @@ export default function PrimaryLayout(props: {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex flex-shrink-0">
-                                            <Link href={"/"} className="text-white text-2xl lg:text-3xl mb-2">
+                                            <a className="text-white text-2xl lg:text-3xl mb-2">
                                                 <h1 className={pacifico.className}>Sasaje.</h1>
-                                            </Link>
+                                            </a>
                                         </div>
 
                                     </div>
