@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { DateTime } from "luxon";
 import {
   FcRight,
   FcLeft,
   FcLike,
   FcGlobe,
   FcOk,
-  FcCancel,
+
+  FcHighPriority
 } from "react-icons/fc";
-import Link from "next/link";
+import { BsCalendar3 } from "react-icons/bs";
+import { GiAmpleDress } from "react-icons/gi";
+import { IoFastFoodOutline, IoTicketOutline, IoShareSocialOutline } from "react-icons/io5";
+
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
 import { useRouter } from "next/router";
@@ -27,8 +30,8 @@ export default function Index() {
   const [promotion_list, set_promotion_list] = useState([]);
   const [promotion_count, set_promotion_count] = useState(0);
   const router = useRouter();
-  const page : any = parseInt(router.query.page as string) || 1
-  const search : any = router.query.search || ''
+  const page: any = parseInt(router.query.page as string) || 1
+  const search: any = router.query.search || ''
 
   const skip = page === 1 ? 0 : (page - 1) * 9;
 
@@ -42,7 +45,7 @@ export default function Index() {
       },
     }
   );
-  
+
   function calculate_date_different(promotion_created_date: string) {
     const created_date = new Date(promotion_created_date);
     const current_date = new Date();
@@ -73,6 +76,7 @@ export default function Index() {
 
   return (
     <>
+
       <div className="px-4 py-4 sm:px-0">
         <div className="relative rounded-md">
           <input
@@ -124,98 +128,148 @@ export default function Index() {
             }, index: number) => (
               <div
                 key={index}
-                className="dark:bg-gray-900 bg-white border border-gray-300 dark:border-gray-700 inline-block rounded-md overflow-hidden"
+                className="relative dark:bg-gray-900 bg-white inline-block rounded-2xl overflow-hidden"
               >
-                <div className="px-4 py-5 sm:p-6 rounded-md">
-                  <Link
-                    rel="noopener noreferrer"
-                    href={`/${promotion.id}`}
-                    className="text-sm font-semibold tracking-wider text-black dark:text-white truncate block hover:opacity-70"
+                <div className="relative flex justify-center items-center m-3 h-52 bg-white rounded-lg">
+                  <div
+                    className="w-full h-full bg-cover bg-center rounded-lg"
+                    style={{ backgroundImage: `url('https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}')` }}
+                  ></div>
+
+                  {calculate_date_different(promotion.created) <= 1 ? (
+                    <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
+                      
+                      {promotion.category === "Fashion & Lifestyle" ? <GiAmpleDress className="h-8 w-8" /> : <IoFastFoodOutline className="h-8 w-8" />}
+                    </div>
+
+                  ) : calculate_end_date(promotion.end) >= 0 ? (
+
+                    <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
+                      {promotion.category === "Fashion & Lifestyle" ? <GiAmpleDress className="h-8 w-8" /> : <IoFastFoodOutline className="h-8 w-8" />}
+                    </div>
+
+                  ) : (
+
+                    <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
+                      {promotion.category === "Fashion & Lifestyle" ? <GiAmpleDress className="h-8 w-8" /> : <IoFastFoodOutline className="h-8 w-8" />}
+                    </div>
+
+                  )}
+
+
+
+                </div>
+
+                <div className="px-4 sm:px-6 sm:pb-6 sm:pt-3 rounded-md">
+
+                  <h1
+                    className="text-md font-semibold tracking-wider ml-1 text-black dark:text-white truncate block"
                   >
                     {promotion.title.toUpperCase()}
-                  </Link>
-                  <p className="text-sm font-medium text-gray-500 dark:text-gray-300 mt-1">
+                  </h1>
+
+                  <p className="text-md font-light ml-1 text-gray-500 dark:text-gray-400 mt-1">
                     {changeCase
                       .capitalCase(promotion.shop)
                       .replace("/[^A-Zds]/gi", "%")}
                   </p>
-                  <div className="flex flex-col mt-2 gap-y-2">
-                    <div className="flex text-gray-500 dark:text-gray-300">
-                      <span>
-                        <FcGlobe className="h-5 w-5 mr-2" />
+
+                  <div className="flex mt-2 gap-x-2">
+                    <div>
+                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-gray-800 bg-white text-white">
+                        <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
+                          <FcGlobe className="h-5 w-5" style={{ marginRight: "0.2px" }} />
+                        </span>
+                        {promotion.state}
                       </span>
-                      <p className="text-sm">
-                        {changeCase
-                          .capitalCase(promotion.state)
-                          .replace(/([A-Z])/g, " $1")}
-                      </p>
                     </div>
-                    <div className="flex text-gray-500 dark:text-gray-300">
-                      <span>
-                        <FcLike className="h-5 w-5 mr-2" />
-                      </span>
-                      <p className="text-sm">
-                        {changeCase.capitalCase(promotion.category, {
-                          splitRegexp: /([a-z])([A-Z0-9])/g,
-                          stripRegexp: /[^A-Z0-9&]/gi,
-                        })}
-                      </p>
-                    </div>
-                    <div className="flex text-gray-500 dark:text-gray-300">
-                      <span>
-                        <FcOk className="h-5 w-5 mr-2" />
-                      </span>
-                      <p className="text-sm">
-                        Start @{" "}
-                        {DateTime.fromISO(promotion.start).toLocaleString(
-                          DateTime.DATE_FULL
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex text-gray-500 dark:text-gray-300">
-                      <span>
-                        <FcCancel className="h-5 w-5 mr-2" />
-                      </span>
-                      <p className="text-sm">
-                        End @{" "}
-                        {DateTime.fromISO(promotion.end).toLocaleString(
-                          DateTime.DATE_FULL
-                        )}
-                      </p>
+                    <div>
+
+
+                      {calculate_date_different(promotion.created) <= 1 ? (
+                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-gray-800 bg-white text-white">
+                          <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
+                            <FcLike className="h-5 w-5" style={{ marginRight: "0.2px" }} />
+                          </span>
+                          New
+                        </span>
+
+                      ) : calculate_end_date(promotion.end) >= 0 ? (
+
+                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-red-800 bg-white text-white">
+                          <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
+                            <FcHighPriority className="h-5 w-5" style={{ marginRight: "0.2px" }} />
+                          </span>
+                          Ended
+                        </span>
+
+                      ) : (
+
+                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-green-800 bg-white text-white">
+                          <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
+                            <FcOk className="h-5 w-5" style={{ marginRight: "0.2px" }} />
+                          </span>
+                          Active
+                        </span>
+
+                      )}
+
                     </div>
                   </div>
-                  <div className="flex gap-x-2">
-                    <div className="mt-4">
-                      <Link
-                        type="button"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        href={`https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}`}
-                        className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        View Image
-                      </Link>
-                    </div>
+
+                  <div className="border-t border-gray-500 border-solid w-full mt-5"></div>
+
+                  <div className="flex gap-x-2 mt-5 justify-between">
 
                     {calculate_date_different(promotion.created) <= 1 ? (
-                      <div className="mt-5">
-                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs bg-green-100 text-green-800">
-                          NEWLY ADDED
-                        </span>
-                      </div>
+                      <>
+                        <div onClick={() => router.push(`/${promotion.id}`)} className="w-12 h-12 bg-indigo-600 rounded-full flex justify-center items-center">
+                          <IoShareSocialOutline className="h-5 w-5 text-white" />
+                        </div>
+
+                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
+                          <span className="mr-2">
+                            <IoTicketOutline className="h-6 w-6" />
+                          </span>
+                          Promotion Details
+                        </button>
+                      </>
+
                     ) : calculate_end_date(promotion.end) >= 0 ? (
-                      <div className="mt-5">
-                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs bg-red-100 text-red-800">
-                          ENDED
-                        </span>
-                      </div>
+
+                      <>
+                        <div className="w-12 h-12 bg-gray-700 rounded-full flex justify-center items-center">
+                          <IoShareSocialOutline className="h-5 w-5 text-white" />
+                        </div>
+
+                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
+                          <span className="mr-2">
+                            <IoTicketOutline className="h-6 w-6" />
+                          </span>
+                          Promotion Details
+                        </button>
+                      </>
+
                     ) : (
-                      <div className="mt-5">
-                        <span className="inline-flex items-center font-semibold px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-800">
-                          ACTIVE
-                        </span>
-                      </div>
+                      <>
+                        <div className="w-12 h-12 bg-indigo-600 rounded-full flex justify-center items-center">
+                          <IoShareSocialOutline className="h-5 w-5 text-white" />
+                        </div>
+
+
+                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 bg-indigo-700 text-white font-semibold rounded-3xl flex items-center">
+                          <span className="mr-2">
+                            <IoTicketOutline className="h-6 w-6" />
+                          </span>
+                          Promotion Details
+                        </button>
+                      </>
+
+
                     )}
+
+
+
                   </div>
                 </div>
               </div>
