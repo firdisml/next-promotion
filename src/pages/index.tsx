@@ -10,10 +10,9 @@ import {
 
   FcHighPriority
 } from "react-icons/fc";
-import { BsCalendar3 } from "react-icons/bs";
 import { GiAmpleDress } from "react-icons/gi";
 import { IoFastFoodOutline, IoTicketOutline, IoShareSocialOutline } from "react-icons/io5";
-
+import Category from "components/category";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
 import { useRouter } from "next/router";
@@ -133,30 +132,27 @@ export default function Index() {
                   <div
                     className="w-full h-full bg-cover bg-center rounded-lg"
                     style={{ backgroundImage: `url('https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}')` }}
-                  ></div>
-
+                  >
+                  </div>
                   {calculate_date_different(promotion.created) <= 1 ? (
+
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
-                      
-                      {promotion.category === "Fashion & Lifestyle" ? <GiAmpleDress className="h-8 w-8" /> : <IoFastFoodOutline className="h-8 w-8" />}
+                      <Category category={promotion.category}/>
                     </div>
 
                   ) : calculate_end_date(promotion.end) >= 0 ? (
 
                     <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
-                      {promotion.category === "Fashion & Lifestyle" ? <GiAmpleDress className="h-8 w-8" /> : <IoFastFoodOutline className="h-8 w-8" />}
+                      <Category category={promotion.category}/>
                     </div>
 
                   ) : (
 
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
-                      {promotion.category === "Fashion & Lifestyle" ? <GiAmpleDress className="h-8 w-8" /> : <IoFastFoodOutline className="h-8 w-8" />}
+                      <Category category={promotion.category}/>
                     </div>
 
                   )}
-
-
-
                 </div>
 
                 <div className="px-4 sm:px-6 sm:pb-6 sm:pt-3 rounded-md">
