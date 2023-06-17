@@ -171,7 +171,7 @@ export default function Index() {
 
                   <div className="flex mt-2 gap-x-2">
                     <div>
-                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-gray-700 text-white">
+                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-gray-600 text-white">
                         <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
                           <FcGlobe className="h-5 w-5" style={{ marginRight: "0.2px" }} />
                         </span>
