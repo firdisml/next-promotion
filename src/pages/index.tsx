@@ -83,7 +83,7 @@ export default function Index() {
             onChange={(event) => {
               router.push(`?page=${1}&search=${event.currentTarget.value}`)
             }}
-            className="h-12 block w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-md border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="h-12 block w-full bg-white dark:bg-gray-900 text-black dark:text-white rounded-2xl border placeholder-black dark:placeholder-white border-gray-300 dark:border-gray-700 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             placeholder="Search"
           />
           <div className="absolute inset-y-0 right-0 flex items-center">
