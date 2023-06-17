@@ -140,6 +140,7 @@ export default function Index() {
                       <Category category={promotion.category}/>
                     </div>
 
+
                   ) : calculate_end_date(promotion.end) >= 0 ? (
 
                     <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
