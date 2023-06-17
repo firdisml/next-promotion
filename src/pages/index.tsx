@@ -7,11 +7,9 @@ import {
   FcLike,
   FcGlobe,
   FcOk,
-
   FcHighPriority
 } from "react-icons/fc";
-import { GiAmpleDress } from "react-icons/gi";
-import { IoFastFoodOutline, IoTicketOutline, IoShareSocialOutline } from "react-icons/io5";
+import { IoTicketOutline, IoShareSocialOutline } from "react-icons/io5";
 import Category from "components/category";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
@@ -134,6 +132,7 @@ export default function Index() {
                     style={{ backgroundImage: `url('https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}')` }}
                   >
                   </div>
+                  
                   {calculate_date_different(promotion.created) <= 1 ? (
 
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
@@ -156,7 +155,7 @@ export default function Index() {
                   )}
                 </div>
 
-                <div className="px-4 sm:px-6 sm:pb-6 sm:pt-3 rounded-md">
+                <div className="px-4 sm:px-6 pb-5 pt-4 rounded-md">
 
                   <h1
                     className="text-md font-semibold tracking-wider ml-1 text-black dark:text-white truncate block"
