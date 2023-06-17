@@ -124,9 +124,9 @@ export default function Index() {
             }, index: number) => (
               <div
                 key={index}
-                className="relative dark:bg-gray-900 bg-white inline-block rounded-2xl overflow-hidden"
+                className="relative dark:bg-gray-900 border border-gray-300 dark:border-gray-700 bg-white inline-block rounded-2xl overflow-hidden"
               >
-                <div className="relative flex justify-center items-center m-3 h-52 bg-white rounded-lg">
+                <div className="relative flex justify-center items-center border border-gray-300 dark:border-gray-700 m-3 h-52 bg-white rounded-lg">
                   <div
                     className="w-full h-full bg-cover bg-center rounded-lg"
                     style={{ backgroundImage: `url('https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}')` }}
@@ -135,20 +135,20 @@ export default function Index() {
                   
                   {calculate_date_different(promotion.created) <= 1 ? (
 
-                    <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
+                    <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
                       <Category category={promotion.category}/>
                     </div>
 
 
                   ) : calculate_end_date(promotion.end) >= 0 ? (
 
-                    <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
+                    <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
                       <Category category={promotion.category}/>
                     </div>
 
                   ) : (
 
-                    <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-gray-900 rounded-full flex items-center justify-center">
+                    <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
                       <Category category={promotion.category}/>
                     </div>
 
@@ -171,7 +171,7 @@ export default function Index() {
 
                   <div className="flex mt-2 gap-x-2">
                     <div>
-                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-gray-800 bg-white text-white">
+                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-gray-800 text-white">
                         <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
                           <FcGlobe className="h-5 w-5" style={{ marginRight: "0.2px" }} />
                         </span>
@@ -191,7 +191,7 @@ export default function Index() {
 
                       ) : calculate_end_date(promotion.end) >= 0 ? (
 
-                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-red-800 bg-white text-white">
+                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-red-800 text-white">
                           <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
                             <FcHighPriority className="h-5 w-5" style={{ marginRight: "0.2px" }} />
                           </span>
@@ -200,7 +200,7 @@ export default function Index() {
 
                       ) : (
 
-                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium dark:bg-green-800 bg-white text-white">
+                        <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-green-800 text-white">
                           <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
                             <FcOk className="h-5 w-5" style={{ marginRight: "0.2px" }} />
                           </span>
@@ -212,7 +212,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <div className="border-t border-gray-500 border-solid w-full mt-5"></div>
+                  <div className="border-t border-gray-300 dark:border-gray-700 border-solid w-full mt-5"></div>
 
                   <div className="flex gap-x-2 mt-5 justify-between">
 
