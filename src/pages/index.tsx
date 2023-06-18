@@ -70,6 +70,7 @@ export default function Index() {
       autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
+      closeButton:false,
       pauseOnHover: false,
       draggable: false,
       progress: undefined,
