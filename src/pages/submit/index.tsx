@@ -1,12 +1,10 @@
 import React, { ReactNode, useRef, useState } from 'react'
-import PrimaryLayout from 'layout/PrimaryLayout'
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import ReCAPTCHA from "react-google-recaptcha";
-import Head from 'next/head'
 import { States } from 'utils/states';
 import { Categories } from 'utils/category';
 import { ExclamationIcon } from '@heroicons/react/outline';
@@ -114,7 +112,7 @@ function Index() {
     return (
         <>
             <div className="px-4 py-4 sm:px-0">
-                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md">
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 border border-gray-300 rounded-2xl">
                     <div className="flex">
                         <div className="flex-shrink-0">
                             <ExclamationIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
@@ -127,7 +125,7 @@ function Index() {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-gray-900 overflow-hidden rounded-lg mt-5">
+                <div className="bg-white dark:bg-gray-900 overflow-hidden border border-gray-300 dark:border-gray-600 rounded-2xl mt-5">
 
                     <form className="px-4 py-5 sm:p-6" onSubmit={handle_submit}>
 
@@ -149,13 +147,13 @@ function Index() {
                                 required
                                 disabled={loading}
                                 placeholder="Promotion's Title"
-                                className="mt-2 block text-black dark:text-white dark:bg-gray-800 dark:border-gray-700 py-2.5 px-3 w-full rounded-md border border-gray-300 sm:text-sm"
+                                className="mt-2 block text-black dark:text-white dark:bg-gray-800 dark:border-gray-700 py-2.5 px-3 w-full rounded-2xl border border-gray-300 sm:text-sm"
                             />
                         </div>
 
                         <div className="col-span-6 mt-5">
                             <label htmlFor="category" className="block text-black dark:text-white text-sm font-medium">Category</label>
-                            <select id="category" disabled={loading} name="category" value={category} onChange={(e) => { set_category(e.currentTarget.value) }} className="mt-1 block text-black dark:text-white w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 bg-white py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                            <select id="category" disabled={loading} name="category" value={category} onChange={(e) => { set_category(e.currentTarget.value) }} className="mt-1 block text-black dark:text-white w-full rounded-2xl border border-gray-300 dark:border-gray-700 dark:bg-gray-800 bg-white py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 {Categories.map((category, index) => (<option key={index}>{category}</option>))}
 
                             </select>
@@ -176,7 +174,7 @@ function Index() {
                                 id="link"
                                 required
                                 placeholder="Promotion's Link"
-                                className="mt-2 block text-black dark:text-white w-full py-2.5 px-3 dark:bg-gray-800 rounded-md border border-gray-300 dark:border-gray-700 sm:text-sm"
+                                className="mt-2 block text-black dark:text-white w-full py-2.5 px-3 dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-700 sm:text-sm"
                             />
                         </div>
 
@@ -195,13 +193,13 @@ function Index() {
                                 required
                                 onChange={(e) => (set_shop(e.currentTarget.value))}
                                 placeholder="Promotion's Shop"
-                                className="mt-2 block w-full text-black dark:text-white py-2.5 px-3 dark:bg-gray-800 rounded-md border border-gray-300 dark:border-gray-700 sm:text-sm"
+                                className="mt-2 block w-full text-black dark:text-white py-2.5 px-3 dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-700 sm:text-sm"
                             />
                         </div>
 
                         <div className="col-span-6 sm:col-span-3 mt-5">
                             <label htmlFor="state" className="block text-black dark:text-white text-sm font-medium">State</label>
-                            <select disabled={loading} id="state" value={state} name="state" onChange={(e) => (set_state(e.currentTarget.value))} className="mt-1 block text-black dark:text-white w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 bg-white py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                            <select disabled={loading} id="state" value={state} name="state" onChange={(e) => (set_state(e.currentTarget.value))} className="mt-1 block text-black dark:text-white w-full rounded-2xl border border-gray-300 dark:border-gray-700 dark:bg-gray-800 bg-white py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                 {States.map((state, index) => (<option key={index}>{state}</option>))}
                             </select>
                         </div>
@@ -212,7 +210,7 @@ function Index() {
                                 name="start_date"
                                 selected={start_date}
                                 calendarContainer={datepicker_container}
-                                className="mt-1 block w-full text-black dark:text-white font-mono rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                className="mt-1 block w-full text-black dark:text-white font-mono rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 onChange={(date: Date) => set_start_date(date)}
                                 placeholderText="Promotion's Start Date"
                                 withPortal
@@ -226,7 +224,7 @@ function Index() {
                                 name="end_date"
                                 selected={end_date}
                                 calendarContainer={datepicker_container}
-                                className="mt-1 block w-full font-mono text-black dark:text-white rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                className="mt-1 block w-full font-mono text-black dark:text-white rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 py-2.5 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 onChange={(date: Date) => set_end_date(date)}
                                 placeholderText="Promotion's End Date"
                                 withPortal
@@ -237,7 +235,7 @@ function Index() {
                         <div className="col-span-6 sm:col-span-3 mt-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload Picture</label>
                             <div className='flex flex-col'>
-                                <input name="file_input" accept="image/*" disabled={loading} onChange={upload_image} required className="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400" id="file_input" type="file" />
+                                <input name="file_input" accept="image/*" disabled={loading} onChange={upload_image} required className="block w-full text-sm text-gray-900 border border-gray-300 rounded-2xl cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400" id="file_input" type="file" />
                             </div>
                         </div>
 
@@ -246,7 +244,7 @@ function Index() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex flex-col items-center w-full px-4 py-2.5 border border-transparent text-sm font-semibold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="flex flex-col items-center w-full px-4 py-2.5 border border-transparent text-sm font-semibold rounded-2xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 Submit Promotion
                             </button>

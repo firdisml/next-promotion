@@ -14,6 +14,7 @@ import Category from "components/category";
 import * as changeCase from "change-case";
 import Spinner from "components/spinner";
 import { useRouter } from "next/router";
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(
@@ -222,7 +223,7 @@ export default function Index() {
                           <IoShareSocialOutline className="h-5 w-5 text-white" />
                         </div>
 
-                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
                             <IoTicketOutline className="h-6 w-6" />
                           </span>
@@ -233,11 +234,11 @@ export default function Index() {
                     ) : calculate_end_date(promotion.end) >= 0 ? (
 
                       <>
-                        <div className="w-12 h-12 bg-gray-700 rounded-full flex justify-center items-center">
+                        <div className="w-12 h-12 bg-gray-600 rounded-full flex justify-center items-center">
                           <IoShareSocialOutline className="h-5 w-5 text-white" />
                         </div>
 
-                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 text-sm bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
                             <IoTicketOutline className="h-6 w-6" />
                           </span>
@@ -252,7 +253,7 @@ export default function Index() {
                         </div>
 
 
-                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 bg-indigo-700 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
                             <IoTicketOutline className="h-6 w-6" />
                           </span>
@@ -287,16 +288,16 @@ export default function Index() {
             <button
               onClick={() => router.push(`?page=${page - 1}&search=${search}`)}
               disabled={page <= 1}
-              className="relative inline-flex disabled:bg-gray-300 font-semibold focus:ring focus:ring-indigo-600 items-center px-4 py-2 border border-gray-300 text-sm rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              className="relative inline-flex font-semibold items-center px-4 py-2 text-sm text-gray-700 dark:text-white bg-transparent"
             >
-              <FcLeft className="h-5 w-5 mr-2" /> Back
+              <FaLongArrowAltLeft className="h-5 w-5 mr-2" /> Back
             </button>
             <button
               onClick={() => router.push(`?page=${page + 1}&search=${search}`)}
               disabled={page >= last}
-              className="ml-3 relative inline-flex focus:outline-none focus:ring focus:ring-indigo-600 disabled:bg-gray-300 font-semibold items-center px-4 py-2 border border-gray-300 text-sm rounded-md text-gray-700 bg-white hover:bg-gray-100"
+              className="relative inline-flex font-semibold items-center px-4 py-2 text-sm text-gray-700 dark:text-white bg-transparent"
             >
-              Next <FcRight className="ml-2 h-5 w-5" />
+              Next <FaLongArrowAltRight className="ml-2 h-5 w-5" />
             </button>
           </div>
         </nav>

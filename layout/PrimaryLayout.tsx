@@ -1,19 +1,17 @@
 import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { FcLike, FcPlus } from "react-icons/fc";
+import { FcLike, FcPlus, FcCalculator } from "react-icons/fc";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Pacifico } from '@next/font/google'
 import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-
-
-const pacifico = Pacifico({
+import { HiOutlineSquaresPlus } from "react-icons/hi2";
+import { Viga, Fredoka } from '@next/font/google'
+const viga = Fredoka({
     subsets: ['latin'],
     weight: ['400']
 })
-
 export default function PrimaryLayout(props: {
     children: React.ReactNode
 }) {
@@ -27,15 +25,16 @@ export default function PrimaryLayout(props: {
     return (
         <>
             <div className="min-h-full">
-                <Disclosure as="nav" className="bg-indigo-600">
+                <Disclosure as="nav" className="bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
                     {({ open }) => (
                         <>
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex flex-shrink-0">
-                                            <Link href="/" className="text-white text-2xl lg:text-3xl mb-2">
-                                                <h1 className={pacifico.className}>Sasaje.</h1>
+                                        <FcCalculator className="h-10 w-10" /> 
+                                            <Link href="/" className="flex text-gray-600 font-bold dark:text-white text-2xl mt-0.5 lg:text-3xl">
+                                                <h1 className={viga.className}><a className="font-bold ml-2">Cari Diskaun</a></h1>
                                             </Link>
                                         </div>
 
@@ -46,17 +45,17 @@ export default function PrimaryLayout(props: {
 
                                             {router.route.includes("/submit") ? (<button
                                                 onClick={() => { router.push('/') }}
-                                                className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-semibold"
+                                                className="flex text-gray-600 dark:text-white bg-transparent hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-semibold"
                                             >
-                                                <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
+                                                <HiOutlineSquaresPlus className="h-5 w-5 mr-2" /> Browse Promotion
                                             </button>) : (<button
                                                 onClick={() => { router.push('/submit') }}
-                                                className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-semibold"
+                                                className="flex text-gray-600 dark:text-white bg-transparent hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-semibold"
                                             >
-                                                <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
+                                                <HiOutlineSquaresPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                             </button>)}
 
-                                            <button onClick={() => { setTheme(theme === "dark" ? "light" : "dark") }} className="flex text-white bg-indigo-500 font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm">
+                                            <button onClick={() => { setTheme(theme === "dark" ? "light" : "dark") }} className="flex text-gray-500 dark:text-white bg-transparent font-medium hover:bg-opacity-75 px-3 py-2 rounded-md text-sm">
                                                 {theme === "light" ? (
                                                     <IoIosMoon className="block h-5 w-5" aria-hidden="true" />
                                                 ) : (
@@ -71,7 +70,7 @@ export default function PrimaryLayout(props: {
                                     <div className="-mr-2 flex md:hidden">
                                         {/* Mobile menu button */}
                                         <Disclosure.Button
-                                            className="bg-indigo-600 inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                                            className="bg-transparent inline-flex items-center justify-center p-2 text-gray-700 dark:text-white">
                                             {open ? (
                                                 <XIcon className="block h-6 w-6" aria-hidden="true" />
                                             ) : (
@@ -90,23 +89,23 @@ export default function PrimaryLayout(props: {
                                     {router.route.includes("/submit") ? (<Disclosure.Button
                                         onClick={() => { router.push('/') }}
                                         as="a"
-                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-base font-semibold"
+                                        className="flex dark:text-white text-gray-700 bg-transparent hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-semibold"
                                         aria-current="page"
                                     >
-                                        <FcLike className="h-5 w-5 mr-2" /> Browse Promotion
+                                        <HiOutlineSquaresPlus className="h-5 w-5 mr-2" /> Browse Promotion
                                     </Disclosure.Button>) : (<Disclosure.Button
                                         onClick={() => { void router.push('/submit') }}
                                         as="a"
-                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-semibold"
+                                        className="flex dark:text-white text-gray-700 bg-transparent  px-3 py-3 rounded-md text-sm font-semibold"
                                         aria-current="page"
                                     >
-                                        <FcPlus className="h-5 w-5 mr-2" /> Submit Promotion
+                                        <HiOutlineSquaresPlus className="h-5 w-5 mr-2" /> Submit Promotion
                                     </Disclosure.Button>)}
 
                                     <Disclosure.Button
                                         onClick={() => { setTheme(theme === 'light' ? 'dark' : 'light') }}
                                         as="a"
-                                        className="flex text-white bg-indigo-500 hover:bg-opacity-75 px-3 py-3 rounded-md text-sm font-semibold"
+                                        className="flex dark:text-white text-gray-700 bg-transparent px-3 py-3 rounded-md text-sm font-semibold"
                                         aria-current="page"
                                     >
 

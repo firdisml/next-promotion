@@ -12,7 +12,7 @@ const Category = ({ category }: { category: string }) => {
         return (
             <div className="group relative m-12 flex justify-center ">
                 <GiLargeDress className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
 
         );
@@ -21,7 +21,7 @@ const Category = ({ category }: { category: string }) => {
         return (
             <div className="group relative m-12 flex justify-center">
                 <MdOutlineFastfood className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
         )
     }
@@ -30,7 +30,7 @@ const Category = ({ category }: { category: string }) => {
 
             <div className="group relative m-12 flex justify-center">
                 <BiStore className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
         )
     }
@@ -39,7 +39,7 @@ const Category = ({ category }: { category: string }) => {
 
             <div className="group relative m-12 flex justify-center">
                 <RiLeafLine className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
         )
     }
@@ -47,7 +47,7 @@ const Category = ({ category }: { category: string }) => {
         return (
             <div className="group relative m-12 flex justify-center">
                 <AiOutlineShoppingCart className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
         )
     }
@@ -55,7 +55,7 @@ const Category = ({ category }: { category: string }) => {
         return (
             <div className="group relative m-12 flex justify-center">
                 <TbPlane className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
         )
     }
@@ -63,7 +63,7 @@ const Category = ({ category }: { category: string }) => {
         return (
             <div className="group relative m-12 flex justify-center">
                 <SlPuzzle className="h-6 w-6 text-white" />
-                <span className="absolute -top-1 border border-gray-300 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{category}</span>
+                <span className="absolute -top-1 right-full mr-5 whitespace-nowrap scale-0 inline-block rounded-2xl bg-gray-600 p-2 text-xs text-white group-hover:scale-100">{category}</span>
             </div>
         )
     }
