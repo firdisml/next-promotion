@@ -30,14 +30,16 @@ export default function PrimaryLayout(props: {
                         <>
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                 <div className="flex items-center justify-between h-16">
-                                    <div className="flex items-center">
+                                    <div className="items-center">
                                         <div className="flex flex-shrink-0">
-                                        <FcCalculator className="h-10 w-10" /> 
-                                            <Link href="/" className="flex text-gray-600 font-bold dark:text-white text-2xl mt-0.5 lg:text-3xl">
-                                                <h1 className={viga.className}><a className="font-bold ml-2">Caridiskaun</a></h1>
+                                        <FcLike className="h-10 w-10 mt-2 sm:mt-3" /> 
+                                            <Link href="/" className="text-gray-600 font-bold dark:text-white mt-0.5 lg:text-3xl">
+                                                <h1 className={viga.className}><a className="font-bold ml-3 text-2xl">Sasaje</a></h1>
+                                                <p style={{ fontSize: "13px" }}className="ml-3 font-light -mt-2.5 text-gray-700 dark:text-gray-300 ">Deals & Promotion</p>
                                             </Link>
+                                            
                                         </div>
-
+                                        
                                     </div>
 
                                     <div className="hidden md:block">
