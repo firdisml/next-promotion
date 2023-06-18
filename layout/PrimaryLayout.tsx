@@ -34,7 +34,7 @@ export default function PrimaryLayout(props: {
                                         <div className="flex flex-shrink-0">
                                         <FcCalculator className="h-10 w-10" /> 
                                             <Link href="/" className="flex text-gray-600 font-bold dark:text-white text-2xl mt-0.5 lg:text-3xl">
-                                                <h1 className={viga.className}><a className="font-bold ml-2">Cari Diskaun</a></h1>
+                                                <h1 className={viga.className}><a className="font-bold ml-2">Caridiskaun</a></h1>
                                             </Link>
                                         </div>
 
