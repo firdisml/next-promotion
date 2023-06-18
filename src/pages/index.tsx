@@ -223,7 +223,7 @@ export default function Index() {
                           <IoShareSocialOutline className="h-5 w-5 text-white" />
                         </div>
 
-                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
                             <IoTicketOutline className="h-6 w-6" />
                           </span>
@@ -238,7 +238,7 @@ export default function Index() {
                           <IoShareSocialOutline className="h-5 w-5 text-white" />
                         </div>
 
-                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 text-sm bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
                             <IoTicketOutline className="h-6 w-6" />
                           </span>
@@ -253,7 +253,7 @@ export default function Index() {
                         </div>
 
 
-                        <button onClick={() => router.push(`/${promotion.id}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
                             <IoTicketOutline className="h-6 w-6" />
                           </span>
