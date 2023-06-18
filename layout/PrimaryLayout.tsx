@@ -35,7 +35,7 @@ export default function PrimaryLayout(props: {
                                         <FcLike className="h-10 w-10 mt-1 mt-1.5 sm:mt-3" /> 
                                             <Link href="/" className="text-gray-600 font-bold dark:text-white mt-0.5 lg:text-3xl">
                                                 <h1 className={viga.className}><a className="font-bold ml-3 text-2xl">Sasaje .</a></h1>
-                                                <p style={{ fontSize: "13px" }}className="ml-3 font-light -mt-0.5 sm:-mt-2.5 text-gray-700 dark:text-gray-300 ">Deals & Promotion</p>
+                                                <p style={{ fontSize: "13px" }}className="ml-3 font-light -mt-0.5 sm:-mt-2.5 text-gray-700 dark:text-gray-300 ">Deals & Promotions</p>
                                             </Link>
                                             
                                         </div>
