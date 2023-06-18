@@ -66,7 +66,7 @@ export default function Index() {
 
   function copy_to_clipboard() {
 
-    toast("Promotion's Link Copied", {
+    toast("❤️ Promotion's Link Copied", {
       autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,

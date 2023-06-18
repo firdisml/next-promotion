@@ -9,6 +9,10 @@
     padding-bottom: 0.3rem !important;
 }
 
+.Toastify__toast {
+    border-radius: 1rem !important;
+}
+
 .Toastify__toast-theme--dark {
     background-color: #4b5563 !important;
     color: white !important;
