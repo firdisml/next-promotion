@@ -66,10 +66,9 @@ export default function Index() {
 
   function copy_to_clipboard() {
 
-    toast.success('Link Copied!', {
-      position: "bottom-center",
+    toast("Promotion's Link Copied", {
       autoClose: 1000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: false,
       draggable: false,
@@ -153,20 +152,20 @@ export default function Index() {
                   {calculate_date_different(promotion.created) <= 1 ? (
 
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
-                      <Category category={promotion.category} />
+                      <Category category={promotion.category} status="new"/>
                     </div>
 
 
                   ) : calculate_end_date(promotion.end) >= 0 ? (
 
-                    <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
-                      <Category category={promotion.category} />
+                    <div className="absolute -bottom-7 right-1 bg-gray-200 dark:bg-gray-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
+                      <Category category={promotion.category} status="end"/>
                     </div>
 
                   ) : (
 
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
-                      <Category category={promotion.category} />
+                      <Category category={promotion.category} status="active" />
                     </div>
 
                   )}
@@ -188,7 +187,7 @@ export default function Index() {
 
                   <div className="flex mt-2 gap-x-2">
                     <div>
-                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-gray-600 text-white">
+                      <span className="inline-flex items-center pl-1 py-0.5 pr-3 rounded-full text-sm font-medium bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-white">
                         <span className="inline-flex items-center mr-2 justify-center w-6 h-6 m-1 rounded-full bg-white text-white">
                           <FcGlobe className="h-5 w-5" style={{ marginRight: "0.2px" }} />
                         </span>
@@ -253,14 +252,14 @@ export default function Index() {
 
                       <>
                         <CopyToClipboard text={promotion.link}>
-                          <button onClick={() => copy_to_clipboard()} className="w-12 h-12 bg-gray-600 rounded-full flex justify-center items-center">
-                            <IoShareSocialOutline className="h-5 w-5 text-white" />
+                          <button onClick={() => copy_to_clipboard()} className="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded-full flex justify-center items-center">
+                            <IoShareSocialOutline className="h-5 w-5 text-gray-600 dark:text-white" />
                           </button>
                         </CopyToClipboard>
 
-                        <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
+                        <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 bg-gray-200 text-sm dark:bg-gray-600 text-gray-600 dark:text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
-                            <IoTicketOutline className="h-6 w-6" />
+                            <IoTicketOutline className="h-6 w-6 text-gray-600 dark:text-white" />
                           </span>
                           Promotion Details
                         </button>

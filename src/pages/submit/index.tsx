@@ -62,7 +62,7 @@ function Index() {
         set_loading(true)
 
         //Call toast
-        toast_id = toast.loading("Submitting", {position: "bottom-center",});
+        toast_id = toast.loading("Submitting");
 
         //Formdata
         const data = new FormData();
