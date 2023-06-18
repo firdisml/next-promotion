@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider defaultTheme='light' enableSystem={true} attribute='class'>
         <main className={dmsans.className}>
           <PrimaryLayout>
-            <ToastContainer />
+            <ToastContainer className="font-semibold"/>
             <Component {...pageProps} />
           </PrimaryLayout>
         </main>

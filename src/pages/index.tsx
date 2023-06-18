@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import {
-  FcRight,
-  FcLeft,
   FcLike,
   FcGlobe,
   FcOk,
@@ -15,6 +13,9 @@ import * as changeCase from "change-case";
 import Spinner from "components/spinner";
 import { useRouter } from "next/router";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import { useTheme } from "next-themes";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(
@@ -30,9 +31,7 @@ export default function Index() {
   const router = useRouter();
   const page: any = parseInt(router.query.page as string) || 1
   const search: any = router.query.search || ''
-
   const skip = page === 1 ? 0 : (page - 1) * 9;
-
   const { isLoading, isFetching } = useQuery(
     ["promotions", skip, search],
     () => fetch_promotions(skip, search),
@@ -43,7 +42,8 @@ export default function Index() {
       },
     }
   );
-
+  const { theme, setTheme } = useTheme()
+  let toast_id: any;
   function calculate_date_different(promotion_created_date: string) {
     const created_date = new Date(promotion_created_date);
     const current_date = new Date();
@@ -62,6 +62,22 @@ export default function Index() {
     const days_difference = time_difference / (1000 * 3600 * 24);
 
     return days_difference;
+  }
+
+  function copy_to_clipboard() {
+
+    toast.success('Link Copied!', {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: theme === "light" ? "dark" : "light",
+    });
+
+
   }
 
   const [mounted, setMounted] = useState(false);
@@ -125,7 +141,7 @@ export default function Index() {
             }, index: number) => (
               <div
                 key={index}
-                className="relative dark:bg-gray-900 border border-gray-300 dark:border-gray-700 bg-white inline-block rounded-2xl overflow-hidden"
+                className="relative white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 bg-white inline-block rounded-2xl overflow-hidden"
               >
                 <div className="relative flex justify-center items-center border border-gray-300 dark:border-gray-700 m-3 h-52 bg-white rounded-lg">
                   <div
@@ -133,24 +149,24 @@ export default function Index() {
                     style={{ backgroundImage: `url('https://d2b3yoi62tebs5.cloudfront.net/${promotion.id}')` }}
                   >
                   </div>
-                  
+
                   {calculate_date_different(promotion.created) <= 1 ? (
 
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
-                      <Category category={promotion.category}/>
+                      <Category category={promotion.category} />
                     </div>
 
 
                   ) : calculate_end_date(promotion.end) >= 0 ? (
 
                     <div className="absolute -bottom-7 right-1 bg-gray-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
-                      <Category category={promotion.category}/>
+                      <Category category={promotion.category} />
                     </div>
 
                   ) : (
 
                     <div className="absolute -bottom-7 right-1 bg-indigo-600 w-14 h-14 border-4 border-white dark:border-gray-900 rounded-full flex items-center justify-center">
-                      <Category category={promotion.category}/>
+                      <Category category={promotion.category} />
                     </div>
 
                   )}
@@ -219,9 +235,11 @@ export default function Index() {
 
                     {calculate_date_different(promotion.created) <= 1 ? (
                       <>
-                        <div onClick={() => router.push(`/${promotion.id}`)} className="w-12 h-12 bg-indigo-600 rounded-full flex justify-center items-center">
-                          <IoShareSocialOutline className="h-5 w-5 text-white" />
-                        </div>
+                        <CopyToClipboard text={promotion.link}>
+                          <button onClick={() => copy_to_clipboard()} className="w-12 h-12 bg-indigo-600 rounded-full flex justify-center items-center">
+                            <IoShareSocialOutline className="h-5 w-5 text-white" />
+                          </button>
+                        </CopyToClipboard>
 
                         <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
@@ -234,9 +252,11 @@ export default function Index() {
                     ) : calculate_end_date(promotion.end) >= 0 ? (
 
                       <>
-                        <div className="w-12 h-12 bg-gray-600 rounded-full flex justify-center items-center">
-                          <IoShareSocialOutline className="h-5 w-5 text-white" />
-                        </div>
+                        <CopyToClipboard text={promotion.link}>
+                          <button onClick={() => copy_to_clipboard()} className="w-12 h-12 bg-gray-600 rounded-full flex justify-center items-center">
+                            <IoShareSocialOutline className="h-5 w-5 text-white" />
+                          </button>
+                        </CopyToClipboard>
 
                         <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-gray-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
@@ -248,10 +268,12 @@ export default function Index() {
 
                     ) : (
                       <>
-                        <div className="w-12 h-12 bg-indigo-600 rounded-full flex justify-center items-center">
-                          <IoShareSocialOutline className="h-5 w-5 text-white" />
-                        </div>
 
+                        <CopyToClipboard text={promotion.link}>
+                          <button onClick={() => copy_to_clipboard()} className="w-12 h-12 bg-indigo-600 rounded-full flex justify-center items-center">
+                            <IoShareSocialOutline className="h-5 w-5 text-white" />
+                          </button>
+                        </CopyToClipboard>
 
                         <button onClick={() => router.push(`${promotion.link}`)} className="px-4 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-3xl flex items-center">
                           <span className="mr-2">
@@ -263,9 +285,6 @@ export default function Index() {
 
 
                     )}
-
-
-
                   </div>
                 </div>
               </div>

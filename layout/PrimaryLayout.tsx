@@ -7,8 +7,8 @@ import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
-import { Viga, Fredoka } from '@next/font/google'
-const viga = Fredoka({
+import { Fredoka } from '@next/font/google'
+const fredoka = Fredoka({
     subsets: ['latin'],
     weight: ['400']
 })
@@ -25,7 +25,7 @@ export default function PrimaryLayout(props: {
     return (
         <>
             <div className="min-h-full">
-                <Disclosure as="nav" className="bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
+                <Disclosure as="nav" className="bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700">
                     {({ open }) => (
                         <>
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +34,7 @@ export default function PrimaryLayout(props: {
                                         <div className="flex flex-shrink-0">
                                         <FcLike className="h-10 w-10 mt-1 mt-1.5 sm:mt-3" /> 
                                             <Link href="/" className="text-gray-600 font-bold dark:text-white mt-0.5 lg:text-3xl">
-                                                <h1 className={viga.className}><a className="font-bold ml-3 text-2xl">Sasaje .</a></h1>
+                                                <h1 className={fredoka.className}><a className="font-bold ml-3 text-2xl">Sasaje .</a></h1>
                                                 <p style={{ fontSize: "13px" }}className="ml-3 font-light -mt-0.5 sm:-mt-2.5 text-gray-700 dark:text-gray-300 ">Deals & Promotions</p>
                                             </Link>
                                             

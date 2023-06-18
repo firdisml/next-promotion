@@ -8,4 +8,14 @@
     margin: 0.95rem !important;
     padding-bottom: 0.3rem !important;
 }
-  
+
+.Toastify__toast-theme--dark {
+    background-color: #f3f4f6 !important;
+    color: #4b5563 !important;
+    
+}
+
+.Toastify__toast-theme--light {
+    background-color: #f3f4f6 !important;
+    color: #4b5563 !important;
+}
