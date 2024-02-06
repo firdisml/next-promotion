@@ -16,7 +16,7 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { useTheme } from "next-themes";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
+//Index
 const fetch_promotions = async (skip: number, search: string) => {
   const fetch_transactions_count = await axios.get(
     `https://go-mongo-promotion-production.up.railway.app/api/promotions/visible?skip=${skip}&limit=9&search=${search}`
